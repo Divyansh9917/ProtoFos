@@ -6,7 +6,7 @@ import { Descent } from './components/Descent';
 import { Street } from './components/Street';
 import { Intro } from './components/Intro';
 import { WhyProtofos } from './components/WhyProtofos';
-import { Events } from './components/Events';
+import { ArenaEvents } from './components/ArenaEvents';
 import { Clubs } from './components/Clubs';
 import { Timeline } from './components/Timeline';
 import { FinalCTA } from './components/FinalCTA';
@@ -87,21 +87,19 @@ export function App() {
       {/* 3. Spider-Man Cinematic Descent (Scroll-driven 240-frame sequence) */}
       <Descent />
 
-      {/* 4. The Cyberpunk Avenue (Street level with interactive district terminals) */}
+      {/* 4. Section A: Events Infinite Zoom Arena (#events) & Section B: Competitions Honeycomb (#competitions) */}
+      <ArenaEvents />
+
+      {/* 5. The Cyberpunk Avenue (Street level with interactive district terminals) */}
       <Street 
         onSelectEvent={handleSelectEventFromStreet} 
       />
 
-      {/* 5. Editorial Section 01: The Beginning */}
+      {/* 6. Editorial Section 01: The Beginning */}
       <Intro />
 
-      {/* 6. Section 02: Why Protofos? (4 Core Modules) */}
+      {/* 7. Section 02: Why Protofos? (4 Core Modules) */}
       <WhyProtofos />
-
-      {/* 7. Section 03: Events & City Districts */}
-      <Events 
-        onRegisterCrew={(ev) => handleOpenTickets(ev)} 
-      />
 
       {/* 8. Section 04: Clubs / The Builders (Access Terminals) */}
       <Clubs />

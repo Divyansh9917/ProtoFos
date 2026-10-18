@@ -16,13 +16,13 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
   const navCenterTabs = [
     { name: 'ACCOMMODATION', target: '#intro', badge: null },
     { name: 'WORKSHOPS', target: '#events', badge: 'EARLY BIRD' },
-    { name: 'COMPETITIONS', target: '#events', badge: null },
+    { name: 'COMPETITIONS', target: '#competitions', badge: null },
     { name: 'IGNITE', target: '#timeline', badge: null },
   ];
 
   const leftDockItems = [
     { name: 'Home', target: '#hero', icon: <Home className="w-[18px] h-[18px]" /> },
-    { name: 'Events', target: '#street', icon: <Calendar className="w-[18px] h-[18px]" /> },
+    { name: 'Events', target: '#events', icon: <Calendar className="w-[18px] h-[18px]" /> },
     { name: 'Clubs', target: '#clubs', icon: <Cpu className="w-[18px] h-[18px]" /> },
     { name: 'Contact Us', target: '#footer', icon: <Phone className="w-[18px] h-[18px]" /> },
     { name: 'About Us', target: '#intro', icon: <Users className="w-[18px] h-[18px]" /> },
@@ -91,8 +91,9 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
     const sections = [
       { id: 'hero', name: 'Home' },
       { id: 'descent', name: 'Home' },
-      { id: 'street', name: 'Events' },
       { id: 'events', name: 'Events' },
+      { id: 'competitions', name: 'Events' },
+      { id: 'street', name: 'Events' },
       { id: 'clubs', name: 'Clubs' },
       { id: 'intro', name: 'About Us' },
       { id: 'footer', name: 'Contact Us' },
