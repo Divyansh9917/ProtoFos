@@ -18,7 +18,7 @@ export const Hero = ({ onScrollDown }) => {
         if (e.matches) {
           videoRef.current.pause();
         } else {
-          videoRef.current.play().catch(() => {});
+          videoRef.current.play().catch(() => { });
         }
       }
     };
@@ -35,7 +35,7 @@ export const Hero = ({ onScrollDown }) => {
         ([entry]) => {
           if (!mediaQuery.matches) {
             if (entry.isIntersecting) {
-              video.play().catch(() => {});
+              video.play().catch(() => { });
             } else {
               video.pause();
             }
@@ -50,7 +50,7 @@ export const Hero = ({ onScrollDown }) => {
       if (mediaQuery.matches) {
         video.pause();
       } else {
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
 
       const handleTimeUpdate = () => {
@@ -85,9 +85,9 @@ export const Hero = ({ onScrollDown }) => {
   const progressPercent = videoDuration > 0 ? (videoTime / videoDuration) * 100 : 0;
 
   return (
-    <section 
+    <section
       ref={heroRef}
-      id="hero" 
+      id="hero"
       className="relative w-full h-screen min-h-[700px] overflow-hidden select-none bg-[#04070b] flex flex-col justify-between"
     >
       {/* 1. Fullscreen Background Video (Scaled to crop bottom-right AI watermark while keeping cyborg centered) */}
@@ -111,7 +111,7 @@ export const Hero = ({ onScrollDown }) => {
           - Right ~85% dark navy (for crisp readability of the hero text)
           - Radial scrim behind the hero text
           - Scanlines + Vignette */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
           background: 'linear-gradient(to right, rgba(4, 7, 11, 0.0) 0%, rgba(4, 7, 11, 0.06) 30%, rgba(4, 7, 11, 0.58) 58%, rgba(4, 7, 11, 0.88) 84%, rgba(4, 7, 11, 0.94) 100%)'
@@ -119,7 +119,7 @@ export const Hero = ({ onScrollDown }) => {
       />
 
       {/* Radial scrim focused behind right-shifted hero text block */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-[2]"
         style={{
           background: 'radial-gradient(ellipse 65% 55% at 66% 50%, rgba(4, 7, 11, 0.65) 0%, rgba(4, 7, 11, 0.22) 60%, transparent 100%)'
@@ -127,7 +127,7 @@ export const Hero = ({ onScrollDown }) => {
       />
 
       {/* Very subtle Scanline CRT overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-[3] opacity-[0.06]"
         style={{
           backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.6) 50%)',
@@ -136,7 +136,7 @@ export const Hero = ({ onScrollDown }) => {
       />
 
       {/* Bottom transition gradient into ink (#04070b) */}
-      <div 
+      <div
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-[4]"
         style={{
           background: 'linear-gradient(to top, #04070b 0%, rgba(4, 7, 11, 0.75) 50%, transparent 100%)'
@@ -144,7 +144,7 @@ export const Hero = ({ onScrollDown }) => {
       />
 
       {/* Subtle vignette border */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-[5]"
         style={{
           boxShadow: 'inset 0 0 100px rgba(4, 7, 11, 0.75)'
@@ -153,9 +153,9 @@ export const Hero = ({ onScrollDown }) => {
 
       {/* 3. HUD TELEMETRY BOXES */}
       <div className="relative z-20 w-full px-8 sm:px-14 pt-24 sm:pt-28 flex justify-between items-start pointer-events-none">
-        
+
         {/* Left HUD Box: SUBJECT STATUS / CYBORG-07 // ONLINE */}
-        <div 
+        <div
           className="pointer-events-auto bg-[#0e1614]/85 backdrop-blur-md border border-[#19e3f5]/25 px-5 py-2.5 shadow-[0_4px_25px_rgba(0,0,0,0.7)]"
           style={{
             clipPath: 'polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)'
@@ -185,9 +185,9 @@ export const Hero = ({ onScrollDown }) => {
 
       {/* 4. HERO CENTER CONTENT (Right-Shifted to keep Cyborg profile visible) */}
       <div className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 sm:px-8 mt-1 lg:mt-0 lg:translate-x-[11vw]">
-        
+
         {/* "IIIT BHAGALPUR'S" */}
-        <h2 
+        <h2
           className="font-cinzel italic font-semibold text-xl sm:text-2xl md:text-[26px] text-[#f3ebd3] tracking-[0.22em] mb-1 sm:mb-2 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
         >
           IIIT BHAGALPUR&apos;S
@@ -195,9 +195,9 @@ export const Hero = ({ onScrollDown }) => {
 
         {/* BADA PROTOFOS WORDMARK (From Image File with yellow neon glow) */}
         <div className="relative my-0.5 sm:my-1 flex items-center justify-center max-w-[92vw] lg:max-w-[1040px]">
-          <img 
-            src="/images/protofos-wordmark.png" 
-            alt="PROTOFOS" 
+          <img
+            src="/images/protofos-wordmark.png"
+            alt="PROTOFOS"
             className="w-full h-auto object-contain pointer-events-none filter drop-shadow-[0_0_30px_rgba(246,232,30,0.7)] drop-shadow-[0_0_10px_rgba(246,232,30,0.85)]"
           />
         </div>
@@ -229,7 +229,7 @@ export const Hero = ({ onScrollDown }) => {
 
       {/* 5. BOTTOM BAR & TIMELINE */}
       <div className="relative z-20 pb-5 sm:pb-6 flex flex-col items-center select-none">
-        
+
         {/* Timeline Labels Row */}
         <div className="w-[88vw] max-w-[560px] flex items-center justify-between text-[9px] sm:text-[10px] font-spacemono mb-1 px-1">
           <span className="text-[#8898a6] tracking-wider">
@@ -245,14 +245,14 @@ export const Hero = ({ onScrollDown }) => {
 
         {/* Thin Timeline Line with Active Progress Indicator */}
         <div className="w-[88vw] max-w-[560px] h-[1.5px] bg-slate-700/60 relative overflow-hidden rounded-full mb-2.5">
-          <div 
+          <div
             className="h-full bg-gradient-to-r from-[#f6e81e] to-[#19e3f5] transition-all duration-100 ease-linear shadow-[0_0_8px_#f6e81e]"
             style={{ width: `${Math.min(100, Math.max(0, progressPercent))}%` }}
           />
         </div>
 
         {/* SCROLL Indicator with click-to-scroll */}
-        <button 
+        <button
           onClick={onScrollDown}
           className="flex flex-col items-center group cursor-pointer focus:outline-none transition-transform hover:scale-110"
         >
