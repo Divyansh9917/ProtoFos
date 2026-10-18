@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Extract Frame</title>
+</head>
+<body style="background:#000; color:#fff; font-family:sans-serif;">
+  <h2>Extracting Frame 0...</h2>
+  <video id="vid" src="/main-hero.mp4" muted playsinline crossOrigin="anonymous" preload="auto" style="display:none;"></video>
+  <canvas id="cvs"></canvas>
+  <p id="status">Loading...</p>
+
+  <script>
+    const vid = document.getElementById('vid');
+    const cvs = document.getElementById('cvs');
+    const status = document.getElementById('status');
+
+    vid.addEventListener('loadeddata', () => {
+      vid.currentTime = 0;
+    });
+
+    vid.addEventListener('seeked', () => {
+      cvs.width = vid.videoWidth;
+      cvs.height = vid.videoHeight;
+      const ctx = cvs.getContext('2d');
+      ctx.drawImage(vid, 0, 0, vid.videoWidth, vid.videoHeight);
+      status.innerText = `Captured: ${vid.videoWidth}x${vid.videoHeight}, duration: ${vid.duration}s`;
+      
+      // Send data url to server or save via fetch to a small endpoint or localStorage
+      const dataUrl = cvs.toDataURL('image/jpeg', 0.95);
+      window.__FRAME_DATA__ = dataUrl;
+      console.log('Frame ready, length:', dataUrl.length);
+    });
+
+    vid.load();
+  </script>
+</body>
+</html>

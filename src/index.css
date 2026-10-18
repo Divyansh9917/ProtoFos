@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Cynatar';
+  src: url('/fonts/Cynatar.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --cyber-yellow: #FCEE0A;
+    --cyber-blue: #00F0FF;
+    --cyber-red: #FF003C;
+    --cyber-bg: #04060B;
+    --cyber-panel: #0E131F;
+  }
+
+  body {
+    background-color: #04060B;
+    color: #e2e8f0;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #04060B;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 0px;
+    border: 1px solid rgba(252, 238, 10, 0.3);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FCEE0A;
+  }
+}
+
+/* Authentic Cyberpunk 2077 Hazard Stripes */
+.cyber-hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    #FCEE0A,
+    #FCEE0A 8px,
+    #04060B 8px,
+    #04060B 16px
+  );
+}
+
+.cyber-hazard-cyan {
+  background: repeating-linear-gradient(
+    -45deg,
+    #00F0FF,
+    #00F0FF 8px,
+    #04060B 8px,
+    #04060B 16px
+  );
+}
+
+/* Cyberpunk 2077 Chamfered Cut Corners */
+.cyber-cut {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+}
+
+.cyber-cut-lg {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 24px) 0,
+    100% 24px,
+    100% 100%,
+    24px 100%,
+    0 calc(100% - 24px)
+  );
+}
+
+.cyber-cut-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
+.cyber-cut-tr {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.cyber-cut-bl {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    16px 100%,
+    0 calc(100% - 16px)
+  );
+}
+
+/* Cynatar Font and Glow Styling */
+.font-cynatar {
+  font-family: 'Cynatar', 'Chakra Petch', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.cynatar-yellow-glow {
+  color: #FCEE0A;
+  text-shadow: 
+    0 0 10px rgba(252, 238, 10, 0.95),
+    0 0 30px rgba(252, 238, 10, 0.75),
+    0 0 60px rgba(252, 238, 10, 0.5),
+    0 0 100px rgba(252, 238, 10, 0.3);
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.85);
+}
+
+/* Cyber text glow */
+.text-glow-yellow {
+  text-shadow: 0 0 10px rgba(252, 238, 10, 0.8), 0 0 30px rgba(252, 238, 10, 0.5);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(255, 0, 60, 0.8), 0 0 30px rgba(255, 0, 60, 0.5);
+}
+
+/* Corner clip path for futuristic tech cards */
+.cyber-corner {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% 100%,
+    16px 100%,
+    0 calc(100% - 16px)
+  );
+}
+
+.cyber-corner-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
+.cyber-corner-inv {
+  clip-path: polygon(
+    16px 0,
+    100% 0,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    0 100%,
+    0 16px
+  );
+}
+
+/* Neon border animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+/* Flicker animation for cyber signs */
+@keyframes neonFlicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}
+
+.animate-flicker {
+  animation: neonFlicker 6s infinite;
+}
+
+/* Terminal grid lines */
+.cyber-grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+}
