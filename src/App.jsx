@@ -3,7 +3,6 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Descent } from './components/Descent';
-import { Street } from './components/Street';
 import { Intro } from './components/Intro';
 import { WhyProtofos } from './components/WhyProtofos';
 import { ArenaEvents } from './components/ArenaEvents';
@@ -60,17 +59,6 @@ export function App() {
     setTicketModalOpen(true);
   };
 
-  const handleSelectEventFromStreet = (eventId) => {
-    const target = document.getElementById(`event-${eventId}`);
-    if (target) {
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(target, { offset: -60 });
-      } else {
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-  };
-
   return (
     <div className="relative min-h-screen bg-[#04070b] text-slate-100 selection:bg-[#19e3f5] selection:text-black">
       {/* 1. Global Navigation Bar & Floating Docks */}
@@ -90,12 +78,7 @@ export function App() {
       {/* 4. Section A: Events Infinite Zoom Arena (#events) & Section B: Competitions Honeycomb (#competitions) */}
       <ArenaEvents />
 
-      {/* 5. The Cyberpunk Avenue (Street level with interactive district terminals) */}
-      <Street 
-        onSelectEvent={handleSelectEventFromStreet} 
-      />
-
-      {/* 6. Editorial Section 01: The Beginning */}
+      {/* 5. Editorial Section 01: The Beginning */}
       <Intro />
 
       {/* 7. Section 02: Why Protofos? (4 Core Modules) */}

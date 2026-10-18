@@ -9,10 +9,10 @@ export const Footer = () => {
 
   const navLinks = [
     { name: 'HOME', href: '#hero' },
-    { name: 'CITY', href: '#city-descent' },
-    { name: 'STREET', href: '#street' },
-    { name: 'ABOUT', href: '#intro' },
+    { name: 'CITY', href: '#descent' },
     { name: 'EVENTS', href: '#events' },
+    { name: 'COMPETITIONS', href: '#competitions' },
+    { name: 'ABOUT', href: '#intro' },
     { name: 'CLUBS', href: '#clubs' },
     { name: 'SCHEDULE', href: '#timeline' },
   ];

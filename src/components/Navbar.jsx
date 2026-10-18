@@ -93,7 +93,6 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
       { id: 'descent', name: 'Home' },
       { id: 'events', name: 'Events' },
       { id: 'competitions', name: 'Events' },
-      { id: 'street', name: 'Events' },
       { id: 'clubs', name: 'Clubs' },
       { id: 'intro', name: 'About Us' },
       { id: 'footer', name: 'Contact Us' },
