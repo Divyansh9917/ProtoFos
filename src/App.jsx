@@ -3,13 +3,9 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Descent } from './components/Descent';
-import { Intro } from './components/Intro';
-import { WhyProtofos } from './components/WhyProtofos';
 import { EventsTunnel } from './components/EventsTunnel';
 import { Competitions } from './components/Competitions';
-import { Clubs } from './components/Clubs';
 import { Timeline } from './components/Timeline';
-import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { TicketModal } from './components/TicketModal';
 
@@ -146,24 +142,10 @@ export function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* 6. Editorial Section 01: The Beginning */}
-      <Intro />
-
-      {/* 7. Section 02: Why Protofos? (4 Core Modules) */}
-      <WhyProtofos />
-
-      {/* 8. Section 04: Clubs / The Builders (Access Terminals) */}
-      <Clubs />
-
-      {/* 9. Section 05: The Protofos Protocol (Timeline) */}
+      {/* 6. Section 05: The Protofos Protocol (Timeline) */}
       <Timeline />
 
-      {/* 10. Section 06: Final Skyline CTA */}
-      <FinalCTA 
-        onOpenTickets={() => handleOpenTickets(null)} 
-      />
-
-      {/* 11. Section 07: Footer */}
+      {/* 7. Section 07: Footer */}
       <Footer />
 
       {/* 12. Interactive Cyber Ticket Pass Generator */}

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {
   Home,
   Calendar,
-  Cpu,
+  Trophy,
+  Clock,
   Phone,
-  Users,
   LogIn,
   MessageCircle,
   MessageSquare
@@ -14,7 +14,7 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
   const [activeSection, setActiveSection] = useState('Home');
 
   const navCenterTabs = [
-    { name: 'ACCOMMODATION', target: '#intro', badge: null },
+    { name: 'ACCOMMODATION', target: '#timeline', badge: null },
     { name: 'WORKSHOPS', target: '#events', badge: 'EARLY BIRD' },
     { name: 'COMPETITIONS', target: '#competitions', badge: null },
     { name: 'IGNITE', target: '#timeline', badge: null },
@@ -23,9 +23,9 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
   const leftDockItems = [
     { name: 'Home', target: '#hero', icon: <Home className="w-[18px] h-[18px]" /> },
     { name: 'Events', target: '#events', icon: <Calendar className="w-[18px] h-[18px]" /> },
-    { name: 'Clubs', target: '#clubs', icon: <Cpu className="w-[18px] h-[18px]" /> },
+    { name: 'Competitions', target: '#competitions', icon: <Trophy className="w-[18px] h-[18px]" /> },
+    { name: 'Schedule', target: '#timeline', icon: <Clock className="w-[18px] h-[18px]" /> },
     { name: 'Contact Us', target: '#footer', icon: <Phone className="w-[18px] h-[18px]" /> },
-    { name: 'About Us', target: '#intro', icon: <Users className="w-[18px] h-[18px]" /> },
   ];
 
   const socialLinks = [
@@ -92,9 +92,8 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
       { id: 'hero', name: 'Home' },
       { id: 'descent', name: 'Home' },
       { id: 'events', name: 'Events' },
-      { id: 'competitions', name: 'Events' },
-      { id: 'clubs', name: 'Clubs' },
-      { id: 'intro', name: 'About Us' },
+      { id: 'competitions', name: 'Competitions' },
+      { id: 'timeline', name: 'Schedule' },
       { id: 'footer', name: 'Contact Us' },
     ];
 
