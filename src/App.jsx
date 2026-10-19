@@ -11,6 +11,10 @@ import { TicketModal } from './components/TicketModal';
 export function App() {
   const [ticketModalOpen, setTicketModalOpen] = useState(false);
   const [preselectedEvent, setPreselectedEvent] = useState(null);
+  const [currentPath, setCurrentPath] = useState(() => {
+    if (typeof window === 'undefined') return '/';
+    return window.location.pathname;
+  });
   const [competitionSlug, setCompetitionSlug] = useState(() => {
     if (typeof window === 'undefined') return null;
     const match = window.location.pathname.match(/^\/competitions\/([a-z0-9-]+)/i);
@@ -21,6 +25,7 @@ export function App() {
   // Sync route on popstate
   useEffect(() => {
     const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
       const match = window.location.pathname.match(/^\/competitions\/([a-z0-9-]+)/i);
       setCompetitionSlug(match ? match[1] : null);
     };
@@ -54,9 +59,9 @@ export function App() {
     };
   }, []);
 
-  // Always scroll to top immediately and reset Lenis whenever opening or switching competition detail pages
+  // Always scroll to top immediately and reset Lenis whenever opening or switching competition detail pages or about page
   useEffect(() => {
-    if (competitionSlug) {
+    if (competitionSlug || currentPath === '/about' || currentPath === '/about/') {
       if (lenisRef.current) {
         lenisRef.current.scrollTo(0, { immediate: true });
       }
@@ -83,18 +88,32 @@ export function App() {
         clearTimeout(t);
       };
     }
-  }, [competitionSlug]);
+  }, [competitionSlug, currentPath]);
 
   const handleNavigate = (targetSelector) => {
-    if (competitionSlug) {
+    if (targetSelector === '/about') {
       setCompetitionSlug(null);
-      window.history.pushState(null, '', '/competitions');
+      setCurrentPath('/about');
+      window.history.pushState(null, '', '/about');
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (currentPath === '/about' || currentPath === '/about/' || competitionSlug) {
+      setCurrentPath('/');
+      setCompetitionSlug(null);
+      window.history.pushState(null, '', '/');
       setTimeout(() => {
-        if (lenisRef.current) {
-          lenisRef.current.scrollTo(targetSelector, { offset: 0, duration: 1.2 });
-        } else {
-          const el = document.querySelector(targetSelector);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (targetSelector.startsWith('#')) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(targetSelector, { offset: 0, duration: 1.2 });
+          } else {
+            const el = document.querySelector(targetSelector);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }
         }
       }, 60);
       return;
@@ -115,11 +134,32 @@ export function App() {
     setTicketModalOpen(true);
   };
 
+  // If viewing the About page (/about)
+  if (currentPath === '/about' || currentPath === '/about/') {
+    return (
+      <div className="relative min-h-screen bg-[#04070b] text-slate-100 selection:bg-[#19e3f5] selection:text-black flex flex-col justify-between">
+        <Navbar
+          currentPath={currentPath}
+          onOpenTickets={() => handleOpenTickets(null)}
+          onNavigate={handleNavigate}
+        />
+        <div className="about-placeholder">About Section (Content to be added later)</div>
+        <Footer />
+        <TicketModal
+          isOpen={ticketModalOpen}
+          onClose={() => setTicketModalOpen(false)}
+          preselectedEvent={preselectedEvent}
+        />
+      </div>
+    );
+  }
+
   // If viewing a single competition landing page (/competitions/:slug)
   if (competitionSlug) {
     return (
       <div className="relative min-h-screen bg-[#04070b] text-slate-100 selection:bg-[#19e3f5] selection:text-black">
         <Navbar
+          currentPath={currentPath}
           onOpenTickets={() => handleOpenTickets(null)}
           onNavigate={handleNavigate}
         />
@@ -143,20 +183,21 @@ export function App() {
     <div className="relative min-h-screen bg-[#04070b] text-slate-100 selection:bg-[#19e3f5] selection:text-black">
       {/* 1. Global Navigation Bar & Floating Docks */}
       <Navbar
+        currentPath={currentPath}
         onOpenTickets={() => handleOpenTickets(null)}
         onNavigate={handleNavigate}
       />
 
       {/* 2. Hero Section with main-hero.mp4 loop and pixel-perfect HUD */}
-      <Hero 
-        onScrollDown={() => handleNavigate('#descent')} 
+      <Hero
+        onScrollDown={() => handleNavigate('#descent')}
       />
 
       {/* 3. Spider-Man Cinematic Descent (Scroll-driven 240-frame sequence) */}
       <Descent />
 
       {/* 4. Section A: Events Infinite Zoom Arena (#events) */}
-      <EventsTunnel 
+      <EventsTunnel
         onSelectCompetition={(comp) => {
           window.history.pushState(null, '', `/competitions/${comp.slug}`);
           setCompetitionSlug(comp.slug);

@@ -171,7 +171,8 @@ export const Hero = ({ onScrollDown }) => {
           </div>
         </div>
 
-        {/* Right HUD Box: CORE TEMP / 821 °C */}
+        {/* Right HUD Box: CORE TEMP / 821 °C (Commented out) */}
+        {/*
         <div className="pointer-events-auto bg-[#060a12]/85 backdrop-blur-md border border-white/10 px-5 py-2.5 shadow-[0_4px_25px_rgba(0,0,0,0.7)] text-right min-w-[125px]">
           <div className="font-spacemono text-[9.5px] uppercase tracking-[0.22em] text-[#718096] mb-0.5">
             CORE TEMP
@@ -180,6 +181,7 @@ export const Hero = ({ onScrollDown }) => {
             821 <span className="text-base font-normal">°C</span>
           </div>
         </div>
+        */}
 
       </div>
 
@@ -227,10 +229,11 @@ export const Hero = ({ onScrollDown }) => {
 
       </div>
 
-      {/* 5. BOTTOM BAR & TIMELINE */}
+      {/* 5. BOTTOM BAR & TIMELINE (Commented out) */}
+      {/*
       <div className="relative z-20 pb-5 sm:pb-6 flex flex-col items-center select-none">
 
-        {/* Timeline Labels Row */}
+        // Timeline Labels Row
         <div className="w-[88vw] max-w-[560px] flex items-center justify-between text-[9px] sm:text-[10px] font-spacemono mb-1 px-1">
           <span className="text-[#8898a6] tracking-wider">
             LOOP START (0.0s)
@@ -243,7 +246,7 @@ export const Hero = ({ onScrollDown }) => {
           </span>
         </div>
 
-        {/* Thin Timeline Line with Active Progress Indicator */}
+        // Thin Timeline Line with Active Progress Indicator
         <div className="w-[88vw] max-w-[560px] h-[1.5px] bg-slate-700/60 relative overflow-hidden rounded-full mb-2.5">
           <div
             className="h-full bg-gradient-to-r from-[#f6e81e] to-[#19e3f5] transition-all duration-100 ease-linear shadow-[0_0_8px_#f6e81e]"
@@ -251,7 +254,7 @@ export const Hero = ({ onScrollDown }) => {
           />
         </div>
 
-        {/* SCROLL Indicator with click-to-scroll */}
+        // SCROLL Indicator with click-to-scroll
         <button
           onClick={onScrollDown}
           className="flex flex-col items-center group cursor-pointer focus:outline-none transition-transform hover:scale-110"
@@ -263,6 +266,7 @@ export const Hero = ({ onScrollDown }) => {
         </button>
 
       </div>
+      */}
 
     </section>
   );

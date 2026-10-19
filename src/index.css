@@ -216,3 +216,19 @@
     linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
 }
+
+/* About Section Placeholder */
+.about-placeholder {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  color: #19e3f5;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.25rem;
+  text-align: center;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 12px rgba(25, 227, 245, 0.35);
+}
+

@@ -3,25 +3,34 @@ import {
   Home,
   Calendar,
   Trophy,
+  Info,
   Phone,
   MessageCircle,
   MessageSquare
 } from 'lucide-react';
 
-export const Navbar = ({ onOpenTickets, onNavigate }) => {
-  const [activeSection, setActiveSection] = useState('Home');
+export const Navbar = ({ onOpenTickets, onNavigate, currentPath }) => {
+  const [activeSection, setActiveSection] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.pathname === '/about') {
+      return 'About';
+    }
+    return 'Home';
+  });
 
+  /*
   const navCenterTabs = [
     { name: 'ACCOMMODATION', target: '#footer', badge: null },
     { name: 'WORKSHOPS', target: '#events', badge: 'EARLY BIRD' },
     { name: 'COMPETITIONS', target: '#competitions', badge: null },
     { name: 'IGNITE', target: '#footer', badge: null },
   ];
+  */
 
   const leftDockItems = [
     { name: 'Home', target: '#hero', icon: <Home className="w-[18px] h-[18px]" /> },
     { name: 'Events', target: '#events', icon: <Calendar className="w-[18px] h-[18px]" /> },
     { name: 'Competitions', target: '#competitions', icon: <Trophy className="w-[18px] h-[18px]" /> },
+    { name: 'About', target: '/about', icon: <Info className="w-[18px] h-[18px]" /> },
     { name: 'Contact Us', target: '#footer', icon: <Phone className="w-[18px] h-[18px]" /> },
   ];
 
@@ -85,6 +94,11 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
 
   // IntersectionObserver to highlight active left dock tab dynamically
   useEffect(() => {
+    if (currentPath === '/about' || (typeof window !== 'undefined' && window.location.pathname === '/about')) {
+      setActiveSection('About');
+      return;
+    }
+
     const sections = [
       { id: 'hero', name: 'Home' },
       { id: 'descent', name: 'Home' },
@@ -113,15 +127,22 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
     return () => {
       observers.forEach((obs) => obs.disconnect());
     };
-  }, []);
+  }, [currentPath]);
 
   const handleClick = (e, target) => {
     e.preventDefault();
+    if (target === '/about') {
+      setActiveSection('About');
+    }
     if (onNavigate) {
       onNavigate(target);
     } else {
-      const el = document.querySelector(target);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (target.startsWith('#')) {
+        const el = document.querySelector(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = target;
+      }
     }
   };
 
@@ -155,11 +176,12 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
           </div>
         </a>
 
-        {/* Top-Center: Angled-Corner Pill Navbar */}
+        {/* Top-Center: Angled-Corner Pill Navbar (Commented out) */}
+        {/*
         <div className="hidden md:flex items-center relative">
           <div className="relative flex items-center">
 
-            {/* SVG Angled-Corner Pill Frame */}
+            // SVG Angled-Corner Pill Frame
             <div className="relative px-8 lg:px-9 py-2.5 flex items-center shadow-[0_8px_30px_rgba(0,0,0,0.85)]">
               <svg
                 className="absolute inset-0 w-full h-full pointer-events-none"
@@ -174,12 +196,12 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
                 />
               </svg>
 
-              {/* Nav Items */}
+              // Nav Items
               <div className="relative z-10 flex items-center gap-7 lg:gap-8 text-[11px] font-spacemono font-bold tracking-[0.18em] uppercase">
                 {navCenterTabs.map((item) => (
                   <div key={item.name} className="relative group flex flex-col items-center">
 
-                    {/* Yellow EARLY BIRD Badge above WORKSHOPS */}
+                    // Yellow EARLY BIRD Badge above WORKSHOPS
                     {item.badge && (
                       <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
                         <span className="bg-[#f6e81e] text-[#04070b] text-[8px] font-bold font-spacemono px-1.5 py-0.5 tracking-wider uppercase shadow-[0_0_8px_#f6e81e] whitespace-nowrap block">
@@ -203,6 +225,7 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
 
           </div>
         </div>
+        */}
 
         {/* Top-Right: Spacer for balanced centering */}
         <div className="w-[140px] hidden lg:block pointer-events-none" />
@@ -211,7 +234,7 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
 
       {/* 2. LEFT VERTICAL GLASS DOCK */}
       <aside className="fixed left-5 sm:left-6 top-1/2 -translate-y-1/2 z-50 hidden sm:flex flex-col items-center select-none">
-        <div className="bg-[#060b14]/85 backdrop-blur-xl border border-white/10 rounded-[28px] py-5 px-2.5 flex flex-col items-center gap-5 shadow-[0_12px_40px_rgba(0,0,0,0.9)] w-[68px]">
+        <div className="bg-[#060b14]/85 backdrop-blur-xl border border-white/10 rounded-[28px] py-4 sm:py-5 px-2.5 flex flex-col items-center gap-3.5 sm:gap-4 shadow-[0_12px_40px_rgba(0,0,0,0.9)] w-[68px]">
           {leftDockItems.map((item) => {
             const isActive = activeSection === item.name;
             return (
@@ -223,14 +246,14 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
                 title={item.name}
               >
                 <div className={`transition-all ${isActive
-                    ? 'text-[#19e3f5] filter drop-shadow-[0_0_10px_rgba(25,227,245,0.9)] scale-110'
-                    : 'text-slate-400 group-hover:text-white'
+                  ? 'text-[#19e3f5] filter drop-shadow-[0_0_10px_rgba(25,227,245,0.9)] scale-110'
+                  : 'text-slate-400 group-hover:text-white'
                   }`}>
                   {item.icon}
                 </div>
                 <span className={`text-[8.5px] font-spacemono tracking-wider mt-1 text-center whitespace-nowrap transition-colors ${isActive
-                    ? 'text-[#19e3f5] font-bold filter drop-shadow-[0_0_6px_rgba(25,227,245,0.8)]'
-                    : 'text-slate-400 group-hover:text-slate-200'
+                  ? 'text-[#19e3f5] font-bold filter drop-shadow-[0_0_6px_rgba(25,227,245,0.8)]'
+                  : 'text-slate-400 group-hover:text-slate-200'
                   }`}>
                   {item.name}
                 </span>

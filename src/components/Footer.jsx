@@ -187,7 +187,7 @@ export const Footer = () => {
             </div>
 
             {/* Bottom Telemetry Strip */}
-            <div className="mt-6 pt-3.5 border-t border-white/10 flex flex-wrap items-center gap-2.5 text-[9.5px] font-spacemono text-slate-400">
+            {/* <div className="mt-6 pt-3.5 border-t border-white/10 flex flex-wrap items-center gap-2.5 text-[9.5px] font-spacemono text-slate-400">
               <span className="flex items-center gap-1.5 text-[#19e3f5] font-bold">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#19e3f5] animate-ping" />
                 GRID: ONLINE
@@ -198,7 +198,7 @@ export const Footer = () => {
               <span className="text-[#f6e81e] font-bold">CIPHER: 512-BIT</span>
               <span className="text-white/20">•</span>
               <span className="text-slate-400">SECTOR: NIGHT CITY</span>
-            </div>
+            </div> */}
           </div>
 
           {/* CARD 2: DIRECTORY // NAVIGATION (3 Cols) */}
@@ -320,11 +320,11 @@ export const Footer = () => {
                 <span>RETURN TO SKYLINE [TOP]</span>
                 <span className="text-[10px] font-spacemono opacity-60">▲</span>
               </button>
-              <div className="mt-2 text-center">
+              {/* <div className="mt-2 text-center">
                 <span className="font-spacemono text-[9px] text-slate-500 tracking-widest uppercase">
                   BHAGALPUR CENTRAL SYSTEM // SECURE TERMINAL
                 </span>
-              </div>
+              </div> */}
             </div>
 
           </div>
@@ -337,13 +337,13 @@ export const Footer = () => {
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] font-spacemono text-slate-400">
           <div className="flex items-center gap-2 text-center md:text-left">
             <span className="w-1.5 h-1.5 bg-[#f6e81e] rounded-full shadow-[0_0_6px_#f6e81e]" />
-            <span>&copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR METROPOLIS.</span>
+            <span>&copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR.</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px]">
-            <span className="hover:text-[#f6e81e] transition-colors cursor-pointer flex items-center gap-1">
+            {/* <span className="hover:text-[#f6e81e] transition-colors cursor-pointer flex items-center gap-1">
               <Shield className="w-3 h-3 text-[#19e3f5]" /> PRIVACY PROTOCOL
-            </span>
+            </span> */}
             <span className="text-white/20">•</span>
             <span className="hover:text-[#19e3f5] transition-colors cursor-pointer">
               TERMS OF ENGAGEMENT
@@ -353,9 +353,9 @@ export const Footer = () => {
               CODE OF CONDUCT
             </span>
             <span className="text-white/20">•</span>
-            <span className="text-[#19e3f5] font-bold bg-[#19e3f5]/10 px-2 py-0.5 rounded border border-[#19e3f5]/30">
+            {/* <span className="text-[#19e3f5] font-bold bg-[#19e3f5]/10 px-2 py-0.5 rounded border border-[#19e3f5]/30">
               AUTH: 200 OK
-            </span>
+            </span> */}
           </div>
         </div>
 

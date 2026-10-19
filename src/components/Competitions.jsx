@@ -1213,9 +1213,9 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
             </div>
 
             {/* Bottom Caption */}
-            <p className="mt-14 text-center font-mono text-[11px] sm:text-xs text-[#8898a6] tracking-[0.25em] uppercase">
+            {/* <p className="mt-14 text-center font-mono text-[11px] sm:text-xs text-[#8898a6] tracking-[0.25em] uppercase">
               HOVER A HEX TO PREVIEW // CLICK TO ENTER THE ARENA
-            </p>
+            </p> */}
 
           </div>
 
