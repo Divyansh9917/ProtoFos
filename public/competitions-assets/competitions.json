@@ -193,6 +193,129 @@
       "timeline": [],
       "registerUrl": null,
       "rulebookUrl": null
+    },
+    {
+      "order": 7,
+      "slug": "robo-relay",
+      "name": "Robo Relay",
+      "formerName": null,
+      "category": "Robotics",
+      "categorySlug": "robotics",
+      "tagline": "One robot. Two mazes. Zero remote.",
+      "presentedBy": "REC",
+      "presentedByFull": "Robotics & Electronics Club",
+      "instagram": [
+        "@protofos_iiitbh",
+        "@rec_iiitbh"
+      ],
+      "accent": "#f6e81e",
+      "hexImage": "hex/robo-relay.webp",
+      "bannerImage": "banners/robo-relay.webp",
+      "date": "2026-10-31/2026-11-01",
+      "mode": "on-campus (offline)",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": "3-5",
+      "prizePool": "₹18,000",
+      "prizeDetails": [
+        { "position": "1st", "prize": "₹8,000" },
+        { "position": "2nd", "prize": "₹6,000" },
+        { "position": "3rd", "prize": "₹4,000" }
+      ],
+      "fee": "Event pass ₹99 (Robo Relay only) or All-Events pass ₹249; food and accommodation not included. Registration via Unstop + payment form (links TBA, keep the register button as a placeholder link).",
+      "deadline": "[ TBA ]",
+      "format": "Two-Stage Autonomous Run (LFR + Maze)",
+      "rounds": "Timed Heats + Top 3 Knockout",
+      "eligibility": "Open to all engineering students (Teams of 3-5)",
+      "about": "An autonomous robotics challenge where precision, speed and intelligent navigation decide the winner. Each team builds ONE autonomous robot that must complete two stages back to back. Stage 1 is a Line Following Robot (LFR) run over a marked path with curves, turns and junctions. Stage 2 is a Maze Solver with thermocol walls, corridors, sharp turns and dead ends, testing navigation, path-planning and decision-making. Robots must run fully autonomously, with no remote control or human guidance once the run begins.",
+      "highlights": [
+        "Autonomous navigation through two different maze environments",
+        "Robot design, development and sensor-based control",
+        "Line following, obstacle awareness and path planning",
+        "Evaluation by total completion time and penalties",
+        "A showcase of practical robotics and embedded programming"
+      ],
+      "rules": [
+        "One timed run through both mazes. Objective: finish both in the shortest time with minimum penalties.",
+        "Penalties for navigation errors, wall collisions and other rule violations.",
+        "All robots must pass the technical and safety checks before competing.",
+        "No preliminary online round or shortlisting; direct offline registration.",
+        "The top 3 teams play knockout matches to decide the final rankings."
+      ],
+      "timeline": [
+        { "phase": "REGISTRATION", "date": "[ TBA ]", "desc": "Registration via Unstop" },
+        { "phase": "TECH CHECK", "date": "[ TBA ]", "desc": "Robot technical and safety check" },
+        { "phase": "TIMED RUN", "date": "31 OCT 2026", "desc": "Timed run (LFR + Maze)" },
+        { "phase": "KNOCKOUT", "date": "01 NOV 2026", "desc": "Top 3 teams knockout rounds" },
+        { "phase": "RESULTS", "date": "01 NOV 2026", "desc": "Final results and awards ceremony" }
+      ],
+      "contact": {
+        "name": "Student Coordinators",
+        "role": "REC Coordination Desk",
+        "details": "[ TBA ]"
+      },
+      "registerUrl": null,
+      "rulebookUrl": null
+    },
+    {
+      "order": 8,
+      "slug": "ideastrom",
+      "name": "Ideastrom",
+      "formerName": null,
+      "category": "Markets",
+      "categorySlug": "markets",
+      "tagline": "Pitch the idea. Defend the business.",
+      "presentedBy": "E-Cell",
+      "presentedByFull": "Entrepreneurship Cell, IIIT Bhagalpur",
+      "incharge": "Saurabh Ranjan, Club Secretary of E-Cell",
+      "instagram": [
+        "@protofos_iiitbh",
+        "@ecell_iiitbh"
+      ],
+      "accent": "#00f0ff",
+      "hexImage": "hex/ideastrom.webp",
+      "bannerImage": "banners/ideastrom.webp",
+      "date": "2026-10-31/2026-11-01",
+      "mode": "Round 1 online, Round 2 on-campus",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": "2-4 (subject to approval)",
+      "prizePool": "₹11,000",
+      "prizeDetails": [
+        { "position": "Split per position", "prize": "[ TBA ]" }
+      ],
+      "fee": "[ TBA ]",
+      "deadline": "[ TBA ]",
+      "format": "Round 1 Online + Round 2 Live Pitch",
+      "rounds": "2 Rounds (Submission + Live Pitch)",
+      "eligibility": "Open to all students (Teams of 2-4)",
+      "about": "IDEASTROM is the flagship E-Cell event of ProtoFos, an innovation and startup idea pitching competition. Teams submit an original startup or business idea and shortlisted teams pitch it live before a judging panel, moving from idea to execution to industry perspective.",
+      "rules": [
+        "Round 1: Online idea submission, screened by the E-Cell panel for a shortlist.",
+        "Round 2: PPT-based live pitch, about 6-8 minutes of presentation + 3-4 minutes of Q&A (final timings fixed after the shortlist).",
+        "Every pitch must cover: problem statement; proposed solution; target users and market; innovation and differentiation; business model; feasibility; scalability; implementation roadmap."
+      ],
+      "judgingCriteria": [
+        { "criterion": "Innovation and originality", "weight": "20%" },
+        { "criterion": "Problem relevance", "weight": "15%" },
+        { "criterion": "Feasibility", "weight": "15%" },
+        { "criterion": "Business potential", "weight": "15%" },
+        { "criterion": "Presentation and clarity", "weight": "15%" },
+        { "criterion": "Scalability", "weight": "10%" },
+        { "criterion": "Impact", "weight": "10%" }
+      ],
+      "judges": "The invited guest speaker (subject to availability and consent), otherwise a panel of faculty, alumni entrepreneurs and invited professionals.",
+      "timeline": [
+        { "phase": "ROUND 1", "date": "[ TBA ]", "desc": "Online idea submission" },
+        { "phase": "SHORTLIST", "date": "[ TBA ]", "desc": "Shortlist announced by E-Cell panel" },
+        { "phase": "ROUND 2", "date": "01 NOV 2026", "desc": "PPT-based live pitch & Q&A" },
+        { "phase": "RESULTS", "date": "01 NOV 2026", "desc": "Final results and felicitation" }
+      ],
+      "contact": {
+        "name": "Saurabh Ranjan",
+        "role": "Club Secretary of E-Cell",
+        "details": "[ TBA ]"
+      },
+      "registerUrl": null,
+      "rulebookUrl": null
     }
   ]
 }

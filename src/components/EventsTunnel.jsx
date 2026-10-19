@@ -158,7 +158,8 @@ export const EventsTunnel = ({ onSelectCompetition }) => {
     <section 
       id="events" 
       ref={eventsWrapperRef}
-      className="relative w-full h-[700vh] bg-[#04070b] select-none"
+      className="relative w-full bg-[#04070b] select-none"
+      style={{ height: `${competitions.length * 120}vh` }}
       aria-label="Events Infinite Zoom Arena"
     >
       <div className="sticky top-0 h-screen h-[100svh] w-full overflow-hidden">
@@ -222,10 +223,11 @@ export const EventsTunnel = ({ onSelectCompetition }) => {
               </div>
 
               {/* Swappable Art Panel with authentic hex image */}
-              <div className="flex-1 min-h-[140px] relative overflow-hidden border border-white/10 bg-[#05060A]">
+              <div className="flex-1 min-h-[140px] relative overflow-hidden border border-white/10 bg-gradient-to-br from-[#0c1424] to-[#05060A]">
                 <img 
                   src={`/competitions-assets/${ev.hexImage}`}
                   alt={ev.name}
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   width={300}
                   height={346}

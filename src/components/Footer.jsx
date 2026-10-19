@@ -11,7 +11,6 @@ export const Footer = () => {
     { name: 'CITY', href: '#descent' },
     { name: 'EVENTS', href: '#events' },
     { name: 'COMPETITIONS', href: '#competitions' },
-    { name: 'SCHEDULE', href: '#timeline' },
   ];
 
   const socialLinks = [

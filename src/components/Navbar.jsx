@@ -3,9 +3,7 @@ import {
   Home,
   Calendar,
   Trophy,
-  Clock,
   Phone,
-  LogIn,
   MessageCircle,
   MessageSquare
 } from 'lucide-react';
@@ -14,17 +12,16 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
   const [activeSection, setActiveSection] = useState('Home');
 
   const navCenterTabs = [
-    { name: 'ACCOMMODATION', target: '#timeline', badge: null },
+    { name: 'ACCOMMODATION', target: '#footer', badge: null },
     { name: 'WORKSHOPS', target: '#events', badge: 'EARLY BIRD' },
     { name: 'COMPETITIONS', target: '#competitions', badge: null },
-    { name: 'IGNITE', target: '#timeline', badge: null },
+    { name: 'IGNITE', target: '#footer', badge: null },
   ];
 
   const leftDockItems = [
     { name: 'Home', target: '#hero', icon: <Home className="w-[18px] h-[18px]" /> },
     { name: 'Events', target: '#events', icon: <Calendar className="w-[18px] h-[18px]" /> },
     { name: 'Competitions', target: '#competitions', icon: <Trophy className="w-[18px] h-[18px]" /> },
-    { name: 'Schedule', target: '#timeline', icon: <Clock className="w-[18px] h-[18px]" /> },
     { name: 'Contact Us', target: '#footer', icon: <Phone className="w-[18px] h-[18px]" /> },
   ];
 
@@ -93,7 +90,6 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
       { id: 'descent', name: 'Home' },
       { id: 'events', name: 'Events' },
       { id: 'competitions', name: 'Competitions' },
-      { id: 'timeline', name: 'Schedule' },
       { id: 'footer', name: 'Contact Us' },
     ];
 
@@ -208,19 +204,8 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
           </div>
         </div>
 
-        {/* Top-Right: SIGN IN Button with Icon */}
-        <div className="flex items-center">
-          <button
-            onClick={() => onOpenTickets && onOpenTickets(null)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#060a12]/85 hover:bg-[#101726] border border-white/20 hover:border-[#19e3f5] text-[11px] font-spacemono font-bold tracking-wider text-slate-200 hover:text-white transition-all shadow-[0_4px_20px_rgba(0,0,0,0.6)] backdrop-blur-md group hover:drop-shadow-[0_0_10px_rgba(25,227,245,0.6)] cursor-pointer"
-            style={{
-              clipPath: 'polygon(6px 0%, calc(100% - 6px) 0%, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0% calc(100% - 6px), 0% 6px)'
-            }}
-          >
-            <LogIn className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#19e3f5] transition-colors" />
-            <span className="uppercase">SIGN IN</span>
-          </button>
-        </div>
+        {/* Top-Right: Spacer for balanced centering */}
+        <div className="w-[140px] hidden lg:block pointer-events-none" />
 
       </header>
 
@@ -273,16 +258,6 @@ export const Navbar = ({ onOpenTickets, onNavigate }) => {
         </div>
       </aside>
 
-      {/* 4. BOTTOM-RIGHT FLOATING ACTION BUTTON */}
-      <div className="fixed bottom-7 right-7 z-50">
-        <button
-          onClick={() => onOpenTickets && onOpenTickets(null)}
-          title="Quick Pass"
-          className="w-11 h-11 rounded-full bg-[#e11d48] hover:bg-[#f43f5e] text-white flex items-center justify-center shadow-[0_0_25px_rgba(225,29,72,0.85)] hover:scale-110 transition-all cursor-pointer"
-        >
-          <span className="font-serif font-black italic text-lg leading-none">T</span>
-        </button>
-      </div>
     </>
   );
 };

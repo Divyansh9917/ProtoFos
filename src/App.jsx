@@ -5,7 +5,6 @@ import { Hero } from './components/Hero';
 import { Descent } from './components/Descent';
 import { EventsTunnel } from './components/EventsTunnel';
 import { Competitions } from './components/Competitions';
-import { Timeline } from './components/Timeline';
 import { Footer } from './components/Footer';
 import { TicketModal } from './components/TicketModal';
 
@@ -54,6 +53,37 @@ export function App() {
       lenis.destroy();
     };
   }, []);
+
+  // Always scroll to top immediately and reset Lenis whenever opening or switching competition detail pages
+  useEffect(() => {
+    if (competitionSlug) {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
+      const r1 = requestAnimationFrame(() => {
+        if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      });
+
+      const t = setTimeout(() => {
+        if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 50);
+
+      return () => {
+        cancelAnimationFrame(r1);
+        clearTimeout(t);
+      };
+    }
+  }, [competitionSlug]);
 
   const handleNavigate = (targetSelector) => {
     if (competitionSlug) {
@@ -142,10 +172,7 @@ export function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* 6. Section 05: The Protofos Protocol (Timeline) */}
-      <Timeline />
-
-      {/* 7. Section 07: Footer */}
+      {/* 6. Section 07: Footer */}
       <Footer />
 
       {/* 12. Interactive Cyber Ticket Pass Generator */}

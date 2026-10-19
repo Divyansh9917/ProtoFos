@@ -159,54 +159,65 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
     };
   }, [selectedSlug]);
 
+  // Always scroll to top immediately whenever a competition detail page is active
+  useEffect(() => {
+    if (selectedSlug) {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
+      const r1 = requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      });
+
+      const t = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 50);
+
+      return () => {
+        cancelAnimationFrame(r1);
+        clearTimeout(t);
+      };
+    }
+  }, [selectedSlug]);
+
   // Navigate to Competition detail
   const handleOpenDetail = (comp) => {
     savedScrollY.current = window.scrollY;
 
-    const navigateAction = () => {
-      window.history.pushState(null, '', `/competitions/${comp.slug}`);
-      setSelectedSlug(comp.slug);
-      if (onSelectCompetition) onSelectCompetition(comp.slug);
-      setActiveTab('OVERVIEW');
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    };
+    window.history.pushState(null, '', `/competitions/${comp.slug}`);
+    setSelectedSlug(comp.slug);
+    if (onSelectCompetition) onSelectCompetition(comp.slug);
+    setActiveTab('OVERVIEW');
 
-    if (document.startViewTransition) {
-      document.startViewTransition(navigateAction);
-    } else {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        navigateAction();
-        setIsTransitioning(false);
-      }, 250);
-    }
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
   };
 
   // Back to All Arenas
   const handleBackToGrid = () => {
-    const backAction = () => {
-      window.history.pushState(null, '', '/competitions');
-      setSelectedSlug(null);
-      if (onSelectCompetition) onSelectCompetition(null);
-      setTimeout(() => {
-        const gridEl = document.getElementById('competitions-grid') || document.getElementById('competitions');
-        if (gridEl) {
-          gridEl.scrollIntoView({ behavior: 'smooth' });
-        } else if (savedScrollY.current > 0) {
-          window.scrollTo({ top: savedScrollY.current, behavior: 'smooth' });
-        }
-      }, 60);
-    };
-
-    if (document.startViewTransition) {
-      document.startViewTransition(backAction);
-    } else {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        backAction();
-        setIsTransitioning(false);
-      }, 250);
-    }
+    window.history.pushState(null, '', '/competitions');
+    setSelectedSlug(null);
+    if (onSelectCompetition) onSelectCompetition(null);
+    setTimeout(() => {
+      const gridEl = document.getElementById('competitions-grid') || document.getElementById('competitions');
+      if (gridEl) {
+        gridEl.scrollIntoView({ behavior: 'smooth' });
+      } else if (savedScrollY.current > 0) {
+        window.scrollTo({ top: savedScrollY.current, behavior: 'smooth' });
+      }
+    }, 60);
   };
 
   // Current active competition object
@@ -232,10 +243,11 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
       <div className={`relative min-h-screen bg-[#04070b] text-slate-100 select-none pb-28 pt-20 transition-opacity duration-250 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
         
         {/* TOP FULL-WIDTH BANNER (1920x557) with Bottom Fade */}
-        <div className="relative w-full h-[42vw] max-h-[560px] min-h-[300px] overflow-hidden bg-black select-none">
+        <div className="relative w-full h-[42vw] max-h-[560px] min-h-[300px] overflow-hidden bg-gradient-to-br from-[#0c1424] via-[#04060b] to-[#140826] select-none flex items-center justify-center">
           <img 
             src={`/competitions-assets/${comp.bannerImage}`}
             alt={comp.name}
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             className="w-full h-full object-cover object-center"
             width={1920}
             height={557}
@@ -322,11 +334,18 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
               </h1>
 
               {/* Subtitle: PRESENTED BY // ... */}
-              <div className="flex items-center gap-3 text-xs sm:text-sm font-mono font-bold tracking-[0.22em] text-[#19e3f5] uppercase mb-6 filter drop-shadow-[0_0_8px_rgba(25,227,245,0.7)]">
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-mono font-bold tracking-[0.22em] text-[#19e3f5] uppercase mb-4 filter drop-shadow-[0_0_8px_rgba(25,227,245,0.7)]">
                 <span>{comp.presentedBy} PRESENTS</span>
                 <span>//</span>
                 <span>{comp.formerName ? comp.formerName : comp.category}</span>
               </div>
+
+              {/* Tagline */}
+              {comp.tagline && (
+                <p className="font-mono text-xs sm:text-sm text-[#f6e81e] italic mb-6 filter drop-shadow-[0_0_8px_rgba(246,232,30,0.4)]">
+                  "{comp.tagline}"
+                </p>
+              )}
 
               {/* CHIPS ROW */}
               <div className="flex flex-wrap items-center gap-2.5 mb-8">
@@ -334,7 +353,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                   {comp.category}
                 </span>
                 <span className="px-3 py-1 bg-[#0e131f] border border-white/20 text-slate-300 text-[11px] font-mono font-bold tracking-wider uppercase">
-                  ON-CAMPUS
+                  {comp.mode ? comp.mode.toUpperCase() : 'ON-CAMPUS'}
                 </span>
                 <span className="px-3 py-1 bg-[#0e131f] border border-white/20 text-slate-300 text-[11px] font-mono font-bold tracking-wider uppercase">
                   TEAM SIZE [ {comp.teamSize || 'TBA'} ]
@@ -388,6 +407,22 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                         <p className="text-slate-400">
                           [ Second paragraph: format, tools allowed, what makes it unique. ]
                         </p>
+                      </div>
+                    )}
+
+                    {comp.highlights && comp.highlights.length > 0 && (
+                      <div className="mt-6 pt-5 border-t border-white/10">
+                        <h3 className="font-cyberpunk font-bold text-sm text-[#19e3f5] uppercase tracking-wider mb-3">
+                          ARENA HIGHLIGHTS
+                        </h3>
+                        <ul className="flex flex-col gap-2 text-xs font-mono text-slate-300">
+                          {comp.highlights.map((h, i) => (
+                            <li key={i} className="flex items-start gap-2.5">
+                              <span className="text-[#f6e81e] font-bold">▸</span>
+                              <span>{h}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
@@ -469,6 +504,39 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                       [ Official rulebook criteria and judging metrics will be published soon. Download rulebook PDF once released. ]
                     </p>
                   )}
+
+                  {/* Judging Criteria (Ideastrom) */}
+                  {comp.judgingCriteria && comp.judgingCriteria.length > 0 && (
+                    <div className="mt-6 pt-5 border-t border-white/10">
+                      <h3 className="font-cyberpunk font-bold italic text-xl text-[#19e3f5] uppercase tracking-wider mb-4">
+                        JUDGING CRITERIA
+                      </h3>
+                      <div className="flex flex-col gap-3">
+                        {comp.judgingCriteria.map((crit, idx) => (
+                          <div key={idx} className="p-3 bg-[#0a0e17] border border-white/10 flex flex-col gap-1.5">
+                            <div className="flex justify-between items-center text-xs font-mono">
+                              <span className="text-slate-200 font-semibold">{crit.criterion}</span>
+                              <span className="text-[#f6e81e] font-bold">{crit.weight}</span>
+                            </div>
+                            <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden border border-white/10">
+                              <div 
+                                className="h-full bg-gradient-to-r from-[#19e3f5] to-[#f6e81e]"
+                                style={{ width: crit.weight }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Judges Panel */}
+                  {comp.judges && (
+                    <div className="mt-4 p-4 bg-[#0a0e17] border border-white/10 text-xs font-mono">
+                      <span className="text-[#19e3f5] font-bold block mb-1">EVALUATION PANEL:</span>
+                      <span className="text-slate-300">{comp.judges}</span>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -479,18 +547,32 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                     SCHEDULE & MILESTONES
                   </h2>
                   <div className="flex flex-col gap-3 font-mono text-xs sm:text-sm text-slate-300">
-                    <div className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
-                      <span className="text-[#19e3f5] font-bold">REGISTRATION OPENS</span>
-                      <span className="text-slate-400">OCT 2026</span>
-                    </div>
-                    <div className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
-                      <span className="text-[#19e3f5] font-bold">PHASE 1 QUALIFIERS</span>
-                      <span className="text-slate-400">31 OCT 2026</span>
-                    </div>
-                    <div className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
-                      <span className="text-[#f6e81e] font-bold">GRAND FINALE ARENA</span>
-                      <span className="text-slate-400">01 NOV 2026</span>
-                    </div>
+                    {comp.timeline && comp.timeline.length > 0 ? (
+                      comp.timeline.map((item, idx) => (
+                        <div key={idx} className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
+                          <div>
+                            <span className="text-[#19e3f5] font-bold block">{item.phase}</span>
+                            {item.desc && <span className="text-slate-400 text-xs">{item.desc}</span>}
+                          </div>
+                          <span className="text-[#f6e81e] font-bold">{item.date}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <>
+                        <div className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
+                          <span className="text-[#19e3f5] font-bold">REGISTRATION OPENS</span>
+                          <span className="text-slate-400">OCT 2026</span>
+                        </div>
+                        <div className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
+                          <span className="text-[#19e3f5] font-bold">PHASE 1 QUALIFIERS</span>
+                          <span className="text-slate-400">31 OCT 2026</span>
+                        </div>
+                        <div className="p-3 bg-[#0a0e17] border border-white/10 flex justify-between items-center">
+                          <span className="text-[#f6e81e] font-bold">GRAND FINALE ARENA</span>
+                          <span className="text-slate-400">01 NOV 2026</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               )}
@@ -501,9 +583,24 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                   <h2 className="font-cyberpunk font-bold italic text-2xl text-white uppercase tracking-wider mb-2">
                     PRIZE POOL & CERTIFICATION
                   </h2>
-                  <div className="p-5 bg-[#0a0e17] border border-[#f6e81e]/30 flex flex-col gap-2">
+                  <div className="p-5 bg-[#0a0e17] border border-[#f6e81e]/30 flex flex-col gap-3">
                     <span className="text-xs font-mono tracking-widest text-[#19e3f5] uppercase">ESTIMATED PRIZE POOL</span>
                     <span className="text-3xl font-cyberpunk font-bold text-[#f6e81e]">[ {comp.prizePool || 'TBA'} ]</span>
+                    
+                    {comp.prizeDetails && comp.prizeDetails.length > 0 && (
+                      <div className="flex flex-col gap-2 mt-2 pt-3 border-t border-white/10">
+                        <span className="text-xs font-mono tracking-wider text-slate-400 uppercase">PRIZE BREAKDOWN:</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          {comp.prizeDetails.map((pd, idx) => (
+                            <div key={idx} className="p-2.5 bg-[#060b14] border border-white/10 flex justify-between items-center">
+                              <span className="text-xs font-mono text-[#19e3f5]">{pd.position}</span>
+                              <span className="text-sm font-cyberpunk font-bold text-[#f6e81e]">{pd.prize}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     <span className="text-xs font-mono text-slate-400">Winners receive certificates of merit, official Protofos trophies, and direct recognition.</span>
                   </div>
                 </div>
@@ -516,7 +613,13 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                     LEAD COORDINATORS
                   </h2>
                   <div className="p-4 bg-[#0a0e17] border border-white/10 flex flex-col gap-2 font-mono text-xs sm:text-sm">
-                    <span className="text-[#19e3f5] font-bold">PRESENTER: {comp.presentedBy}</span>
+                    <span className="text-[#19e3f5] font-bold">PRESENTER: {comp.presentedByFull || comp.presentedBy}</span>
+                    {comp.incharge && (
+                      <span className="text-[#f6e81e] font-semibold">INCHARGE: {comp.incharge}</span>
+                    )}
+                    {comp.contact && comp.contact.name && (
+                      <span className="text-slate-200">COORDINATOR: {comp.contact.name} ({comp.contact.role})</span>
+                    )}
                     <span className="text-slate-300">Venue: {comp.venue}</span>
                     <span className="text-slate-400">For inquiries, DM us on Instagram or connect with the student coordination desk.</span>
                   </div>
@@ -538,8 +641,8 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                   </button>
                 </div>
 
-                {/* Horizontal row of 5 mini hexes (190px x 219px) */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                {/* Horizontal row of other mini hexes */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
                   {otherCompetitions.map((other) => (
                     <div
                       key={other.slug}
@@ -548,14 +651,14 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                     >
                       {/* Hex Container */}
                       <div 
-                        className="relative w-[150px] h-[173px] sm:w-[170px] sm:h-[196px] md:w-[180px] md:h-[208px] p-[2.5px] transition-all duration-300"
+                        className="relative w-[135px] h-[156px] sm:w-[150px] sm:h-[173px] lg:w-[130px] lg:h-[150px] p-[2.5px] transition-all duration-300"
                         style={{
                           background: 'linear-gradient(135deg, #19e3f5, #6a5cff 50%, #f6e81e)',
                           clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                         }}
                       >
                         <div 
-                          className="w-full h-full relative overflow-hidden bg-[#04060b]"
+                          className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[#0c1322] via-[#04060b] to-[#120a1f]"
                           style={{
                             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                           }}
@@ -563,6 +666,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                           <img 
                             src={`/competitions-assets/${other.hexImage}`}
                             alt={other.name}
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                             width={300}
                             height={346}
@@ -622,6 +726,12 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                   <span className="tracking-wider">DEADLINE</span>
                   <span className="text-[#f6e81e] font-bold tracking-widest">[ {comp.deadline || 'TBA'} ]</span>
                 </div>
+                {comp.fee && (
+                  <div className="flex justify-between items-start text-slate-400 pt-2 border-t border-white/5">
+                    <span className="tracking-wider">FEE</span>
+                    <span className="text-[#19e3f5] font-bold tracking-wider text-right max-w-[200px] text-[11px] leading-tight">[ {comp.fee} ]</span>
+                  </div>
+                )}
               </div>
 
               {/* Action Buttons */}
@@ -842,7 +952,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
               <span>// SELECT YOUR ARENA</span>
             </div>
             <p className="font-cyberpunk font-bold text-xl sm:text-2xl text-white leading-tight">
-              6 arenas. 3 categories.
+              {competitions.length} arenas. {categories.filter(c => c.slug !== 'all').length} categories.
             </p>
             <p className="font-cyberpunk font-bold italic text-xl sm:text-2xl text-[#f6e81e] leading-tight filter drop-shadow-[0_0_12px_rgba(246,232,30,0.6)]">
               One city that never sleeps.
@@ -865,7 +975,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                 ARENAS ONLINE
               </span>
               <span className="font-cyberpunk font-bold text-3xl text-[#f6e81e] filter drop-shadow-[0_0_10px_rgba(246,232,30,0.6)] leading-none mt-1">
-                06
+                {String(competitions.length).padStart(2, '0')}
               </span>
             </div>
 
@@ -960,7 +1070,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
             ALL COMPETITIONS
           </h2>
           <span className="px-3.5 py-1.5 bg-[#f6e81e]/10 border border-[#f6e81e]/40 text-[#f6e81e] font-mono font-bold text-xs tracking-widest uppercase shadow-[0_0_12px_rgba(246,232,30,0.2)] rounded-sm">
-            06 ARENAS
+            {String(competitions.length).padStart(2, '0')} ARENAS
           </span>
         </div>
 
@@ -1041,9 +1151,9 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                 })}
               </div>
 
-              {/* ROW 3: 1 Hexagon (Securathon 2026) - Centered with vertical nesting */}
+              {/* ROW 3: 3 Hexagons (Securathon 2026, Robo Relay, IDEASTROM) */}
               <div className="flex items-center justify-center gap-4 -mt-[74px]">
-                {competitions.slice(5, 6).map((comp) => {
+                {competitions.slice(5, 8).map((comp) => {
                   const matches = activeCategory === 'all' || comp.categorySlug === activeCategory;
                   return (
                     <HexTile 
@@ -1073,6 +1183,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                     <img 
                       src={`/competitions-assets/${comp.bannerImage}`}
                       alt={comp.name}
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       width={1920}
                       height={557}
@@ -1154,7 +1265,7 @@ const HexTile = ({ comp, matches, onSelect }) => {
       >
         {/* Inner Hexagon Container */}
         <div 
-          className="w-full h-full relative overflow-hidden bg-[#04060b]"
+          className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[#0c1322] via-[#04060b] to-[#120a1f]"
           style={{
             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
           }}
@@ -1163,6 +1274,7 @@ const HexTile = ({ comp, matches, onSelect }) => {
           <img 
             src={`/competitions-assets/${comp.hexImage}`}
             alt={comp.name}
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             className="w-full h-full object-cover transition-transform duration-500 will-change-transform"
             style={{
               transform: isHovered && matches ? 'scale(1.08)' : 'scale(1)'
