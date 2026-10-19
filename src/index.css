@@ -232,3 +232,87 @@
   text-shadow: 0 0 12px rgba(25, 227, 245, 0.35);
 }
 
+/* =========================================================================
+   Cyberpunk Footer Animations & Effects
+   ========================================================================= */
+@keyframes footerGlitchBurst {
+  0% { transform: translate(0); text-shadow: 3px 0 #19e3f5, -3px 0 #ff2bd6; }
+  20% { transform: translate(-2px, 1px) skewX(-2deg); text-shadow: 4px 0 #19e3f5, -4px 0 #ff2bd6; }
+  40% { transform: translate(2px, -1px) skewX(2deg); text-shadow: -3px 0 #19e3f5, 3px 0 #ff2bd6; }
+  60% { transform: translate(-1px, 2px); text-shadow: 3px 0 #19e3f5, -3px 0 #ff2bd6; }
+  80% { transform: translate(1px, -1px); text-shadow: 2px 0 #19e3f5, -2px 0 #ff2bd6; }
+  100% { transform: translate(0); text-shadow: 3px 0 #19e3f5, -3px 0 #ff2bd6; }
+}
+
+.footer-glitch-title {
+  text-shadow: 3px 0 #19e3f5, -3px 0 #ff2bd6;
+  transition: transform 0.2s ease;
+}
+
+.footer-glitch-title:hover {
+  animation: footerGlitchBurst 0.35s ease-in-out;
+}
+
+@keyframes footerTopScan {
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  28% {
+    transform: translateX(110vw);
+    opacity: 1;
+  }
+  32% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(110vw);
+    opacity: 0;
+  }
+}
+
+.footer-glitch-scan {
+  animation: footerTopScan 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes footerWindowFlickerA {
+  0%, 100% { opacity: 0.85; }
+  45% { opacity: 0.85; }
+  47% { opacity: 0.15; }
+  50% { opacity: 0.9; }
+  80% { opacity: 0.85; }
+  82% { opacity: 0.2; }
+  84% { opacity: 0.85; }
+}
+
+@keyframes footerWindowFlickerB {
+  0%, 100% { opacity: 0.3; }
+  30% { opacity: 0.3; }
+  32% { opacity: 0.95; }
+  36% { opacity: 0.25; }
+  60% { opacity: 0.35; }
+  62% { opacity: 0.9; }
+  65% { opacity: 0.3; }
+}
+
+.flicker-dot-a {
+  animation: footerWindowFlickerA 4s ease-in-out infinite;
+}
+
+.flicker-dot-b {
+  animation: footerWindowFlickerB 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-glitch-scan,
+  .footer-glitch-title:hover,
+  .flicker-dot-a,
+  .flicker-dot-b {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+

@@ -39,7 +39,7 @@ const bar=document.getElementById('bar'),alt=document.getElementById('alt'),chs=
 history.scrollRestoration='manual';
 window.sd=new ScrollDescent({
   section:document.getElementById('descent'),canvas:document.getElementById('c'),frameCount:240,
-  path:i=>`frames/f_${String(i+1).padStart(4,'0')}.webp`,
+  path:i=>`frames/f_${String(i+1).padStart(4,'0')}.webp?v=2`,
   onProgress:p=>{bar.style.transform=`scaleX(${p})`;alt.textContent=Math.round(840-(840-12)*p)+' M';
     chs.forEach(e=>e.classList.toggle('on',p>=+e.dataset.s&&p<=+e.dataset.e));},
   onLoad:p=>{ld.style.width=p*100+'%';if(p>=1)ld.style.opacity=0;}

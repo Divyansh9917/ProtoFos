@@ -1,330 +1,373 @@
-import React, { useState } from 'react';
-import { ArrowUp, Terminal, Shield, Globe, Cpu, Wifi, Radio, ExternalLink, Activity, Zap } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowUp, Instagram, Linkedin, Github, MessageSquare, Terminal } from 'lucide-react';
 
 export const Footer = () => {
+  const [latency, setLatency] = useState(12);
+
+  // Live latency change every 2-3s between 9-24ms
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLatency(Math.floor(Math.random() * (24 - 9 + 1)) + 9);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+      window.lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
-  const navLinks = [
-    { code: '01', name: 'HOME', href: '#hero', desc: 'Main Skyline & Overview' },
-    { code: '02', name: 'CITY', href: '#descent', desc: 'Spider-Man Freefall' },
-    { code: '03', name: 'EVENTS', href: '#events', desc: 'Infinite Arena Tunnel' },
-    { code: '04', name: 'COMPETITIONS', href: '#competitions', desc: 'Honeycomb 8 Arenas' },
-    { code: '05', name: 'SCHEDULE', href: '#competitions', desc: 'Milestones & Dates' },
+  const directoryLinks = [
+    { name: 'HOME', href: '#hero', active: true },
+    { name: 'DESCENT', href: '#descent', active: false },
+    { name: 'EVENTS', href: '#events', active: false },
+    { name: 'COMPETITIONS', href: '#competitions', active: false },
+    { name: 'SCHEDULE', href: '#schedule', active: false },
   ];
 
   const socialLinks = [
-    { name: 'INSTAGRAM', href: 'https://instagram.com', freq: 'FREQ://94.2', icon: 'IG' },
-    { name: 'LINKEDIN', href: 'https://linkedin.com', freq: 'NET://LNK', icon: 'IN' },
-    { name: 'GITHUB', href: 'https://github.com', freq: 'SRC://GIT', icon: 'GH' },
-    { name: 'DISCORD', href: 'https://discord.com', freq: 'VOX://DSC', icon: 'DC' },
+    {
+      name: 'Instagram',
+      href: 'https://instagram.com',
+      icon: <Instagram className="w-4 h-4" />,
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://linkedin.com',
+      icon: <Linkedin className="w-4 h-4" />,
+    },
+    {
+      name: 'GitHub',
+      href: 'https://github.com',
+      icon: <Github className="w-4 h-4" />,
+    },
+    {
+      name: 'Discord',
+      href: 'https://discord.com',
+      icon: (
+        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+        </svg>
+      ),
+    },
   ];
 
   return (
     <footer
       id="footer"
-      className="relative w-full bg-[#03060c] text-slate-300 overflow-hidden select-none"
+      className="relative w-full bg-[#04070b] text-slate-300 overflow-hidden select-none"
       aria-label="Protofos Central System Terminal"
     >
       {/* =====================================================================
-          1. CINEMATIC CITY SKYLINE BACKGROUND + SPIDER-VERSE WEB ATMOSPHERE
+          1. TOP EDGE: 2PX NEON LINE (CYAN -> YELLOW -> MAGENTA) + SCANNING GLITCH
+          ===================================================================== */}
+      {/* Soft gradient fade from previous section to avoid hard cut */}
+      <div className="absolute inset-x-0 -top-20 h-20 bg-gradient-to-b from-transparent to-[#04070b] pointer-events-none z-20" />
+
+      {/* 1px Ultra-Thin Neon Laser Line */}
+      <div className="relative z-30 w-full h-[1px] bg-gradient-to-r from-[#19e3f5] via-[#f6e81e] to-[#ff2bd6] shadow-[0_0_8px_rgba(25,227,245,0.5)] overflow-hidden">
+        {/* Scanning glitch segment (every ~6s) */}
+        <div className="footer-glitch-scan absolute top-0 h-full w-24 bg-white shadow-[0_0_10px_#ffffff,0_0_6px_#19e3f5]" />
+      </div>
+
+      {/* =====================================================================
+          2. BACKGROUND: 2-LAYER INLINE SVG SKYLINE + FLICKERING WINDOW LIGHTS
+             + SCANLINES OVERLAY + BOTTOM VIGNETTE (<15KB)
           ===================================================================== */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Real Cyberpunk Night City Skyline Image */}
-        <img
-          src="/images/cyberpunk_final_skyline.jpg"
-          alt="Night City Skyline"
-          className="w-full h-full object-cover object-bottom filter blur-[6px] opacity-30 brightness-[0.75] contrast-125 scale-105"
-          loading="lazy"
-          decoding="async"
+        {/* City Skyline Silhouette (Inline SVG with 2 layers, 6-8% opacity, positioned at bottom) */}
+        <svg
+          className="absolute bottom-0 left-0 w-full h-64 sm:h-80 md:h-96 object-cover"
+          viewBox="0 0 1440 360"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          {/* Layer 1: Distant City Skyscrapers (8% opacity, cyan tint) */}
+          <g opacity="0.08" fill="#19e3f5">
+            <rect x="0" y="160" width="45" height="200" />
+            <rect x="55" y="110" width="60" height="250" />
+            <polygon points="85,60 83,110 87,110" />
+            <rect x="125" y="180" width="50" height="180" />
+            <rect x="185" y="130" width="75" height="230" />
+            <rect x="270" y="80" width="65" height="280" />
+            <polygon points="302,30 300,80 305,80" />
+            <rect x="345" y="150" width="55" height="210" />
+            <rect x="410" y="120" width="80" height="240" />
+            <rect x="500" y="170" width="60" height="190" />
+            <rect x="570" y="70" width="70" height="290" />
+            <polygon points="605,20 603,70 607,70" />
+            <rect x="650" y="140" width="50" height="220" />
+            <rect x="710" y="100" width="85" height="260" />
+            <rect x="805" y="160" width="65" height="200" />
+            <rect x="880" y="90" width="75" height="270" />
+            <polygon points="917,40 915,90 920,90" />
+            <rect x="965" y="130" width="60" height="230" />
+            <rect x="1035" y="170" width="55" height="190" />
+            <rect x="1100" y="110" width="70" height="250" />
+            <rect x="1180" y="80" width="80" height="280" />
+            <polygon points="1220,35 1218,80 1222,80" />
+            <rect x="1270" y="150" width="60" height="210" />
+            <rect x="1340" y="120" width="100" height="240" />
+          </g>
+
+          {/* Layer 2: Foreground Heavy Highrises (7% opacity, darker tone with sharp spires) */}
+          <g opacity="0.07" fill="#0e1828" stroke="#19e3f5" strokeWidth="0.5">
+            <rect x="20" y="190" width="70" height="170" />
+            <rect x="100" y="140" width="55" height="220" />
+            <rect x="165" y="210" width="65" height="150" />
+            <rect x="240" y="160" width="80" height="200" />
+            <rect x="330" y="200" width="50" height="160" />
+            <rect x="390" y="150" width="90" height="210" />
+            <rect x="490" y="190" width="60" height="170" />
+            <rect x="560" y="130" width="65" height="230" />
+            <rect x="635" y="180" width="55" height="180" />
+            <rect x="700" y="150" width="75" height="210" />
+            <rect x="785" y="210" width="65" height="150" />
+            <rect x="860" y="140" width="80" height="220" />
+            <rect x="950" y="190" width="65" height="170" />
+            <rect x="1025" y="160" width="55" height="200" />
+            <rect x="1090" y="180" width="80" height="180" />
+            <rect x="1180" y="140" width="70" height="220" />
+            <rect x="1260" y="190" width="65" height="170" />
+            <rect x="1335" y="160" width="90" height="200" />
+          </g>
+
+          {/* Random Window Lights (Yellow & Cyan Dots with slow CSS opacity flicker) */}
+          <g>
+            {/* Yellow Windows (Flicker Pattern A) */}
+            <circle cx="115" cy="155" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="125" cy="175" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="260" cy="180" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="290" cy="110" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="430" cy="140" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="585" cy="95" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="730" cy="120" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="895" cy="115" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="1120" cy="135" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="1205" cy="105" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+            <circle cx="1360" cy="145" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
+
+            {/* Cyan Windows (Flicker Pattern B) */}
+            <circle cx="75" cy="130" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="195" cy="150" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="310" cy="190" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="450" cy="165" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="615" cy="150" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="750" cy="170" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="835" cy="185" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="930" cy="160" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="1060" cy="180" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="1235" cy="160" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+            <circle cx="1380" cy="180" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
+          </g>
+        </svg>
+
+        {/* Scanline CRT overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.8) 50%)',
+            backgroundSize: '100% 4px',
+          }}
         />
 
-        {/* Deep Atmospheric Gradients */}
+        {/* Ambient bottom vignette */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 50% 0%, rgba(25, 227, 245, 0.12) 0%, rgba(3, 6, 12, 0.85) 60%, #03060c 100%)'
+            background: 'radial-gradient(ellipse at 50% 100%, transparent 35%, #04070b 95%)',
           }}
         />
-
-        {/* Ambient Neon Color Spots */}
-        <div className="absolute -top-32 left-1/4 w-96 h-96 bg-[#19e3f5]/10 rounded-full filter blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 right-10 w-[500px] h-80 bg-[#f6e81e]/8 rounded-full filter blur-[120px] pointer-events-none" />
-        <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-[#ff003c]/10 rounded-full filter blur-[110px] pointer-events-none" />
-
-        {/* Cyberpunk Grid Background */}
-        <div className="absolute inset-0 cyber-grid-bg opacity-25" />
-
-        {/* Scanlines CRT Texture */}
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.8) 50%)',
-            backgroundSize: '100% 4px'
-          }}
-        />
-
-        {/* Spider-Man Geometric Web Graphic Overlay (Top-Right Corner) */}
-        <svg
-          className="absolute -top-12 -right-12 w-96 h-96 opacity-20 pointer-events-none text-[#19e3f5]"
-          viewBox="0 0 400 400"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.8"
-        >
-          <path d="M400,0 L0,400" strokeDasharray="4 4" />
-          <path d="M400,0 L100,400" />
-          <path d="M400,0 L200,400" />
-          <path d="M400,0 L300,400" strokeDasharray="3 3" />
-          <path d="M400,0 L0,300" />
-          <path d="M400,0 L0,200" />
-          <path d="M400,0 L0,100" strokeDasharray="4 4" />
-          <circle cx="400" cy="0" r="80" stroke="#f6e81e" strokeWidth="0.8" />
-          <circle cx="400" cy="0" r="160" stroke="#19e3f5" strokeWidth="0.8" strokeDasharray="6 4" />
-          <circle cx="400" cy="0" r="240" stroke="#ff003c" strokeWidth="0.7" />
-          <circle cx="400" cy="0" r="320" stroke="#19e3f5" strokeWidth="0.8" strokeDasharray="8 6" />
-        </svg>
       </div>
 
       {/* =====================================================================
-          2. TOP TRANSITION LASER RIBBON + HUD CENTRAL BADGE
+          MAIN CONTAINER: RESPONSIVE (<900px columns stack, brand upar, links 2-col)
           ===================================================================== */}
-      <div className="relative z-20 w-full">
-        {/* Soft atmospheric gradient top fade */}
-        <div className="absolute inset-x-0 -top-16 h-16 bg-gradient-to-b from-transparent to-[#03060c] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-10 relative z-10">
+        
+        {/* Main Grid: below 900px stacks cleanly */}
+        <div className="flex flex-col min-[900px]:grid min-[900px]:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 mb-10">
 
-        {/* Glowing Neon Laser Line */}
-        <div className="relative w-full h-[2px] bg-gradient-to-r from-transparent via-[#19e3f5] via-45% to-[#f6e81e] to-85% shadow-[0_0_15px_rgba(25,227,245,0.7)]">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#ff003c]/60 to-transparent blur-[2px]" />
-        </div>
-
-        {/* Central Chamfered HUD Ribbon Badge */}
-        <div className="relative -mt-3.5 flex justify-center items-center pointer-events-none px-4">
-          <div
-            className="px-5 py-1.5 bg-[#070d18]/95 border border-[#19e3f5]/50 shadow-[0_0_20px_rgba(25,227,245,0.35)] flex items-center gap-2.5 sm:gap-3 text-[9.5px] sm:text-[10.5px] font-spacemono tracking-[0.24em] text-[#19e3f5] uppercase backdrop-blur-md"
-            style={{
-              clipPath: 'polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px)'
-            }}
-          >
-            <span className="w-2 h-2 rounded-full bg-[#19e3f5] animate-ping" />
-            <span className="text-[#f6e81e] font-bold">TERMINAL://07</span>
-            <span className="text-white/20">|</span>
-            <span className="text-slate-200">NODE: PROTOFOS-26</span>
-            <span className="text-white/20 hidden sm:inline">|</span>
-            <span className="text-[#19e3f5] hidden sm:inline flex items-center gap-1">
-              <Zap className="w-3 h-3 text-[#f6e81e]" /> SIGNAL: 99.8% STABLE
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* =====================================================================
-          3. MAIN CONTENT: 3 HIGH-TECH CYBERPUNK HUD CARDS
-          ===================================================================== */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-14 pb-12 relative z-10">
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mb-12">
-
-          {/* CARD 1: CENTRAL COMMAND & FESTIVAL IDENTITY (5 Cols) */}
-          <div
-            className="lg:col-span-5 bg-[#070d18]/85 border border-[#19e3f5]/30 p-6 sm:p-7 backdrop-blur-md relative overflow-hidden group shadow-[0_8px_35px_rgba(0,0,0,0.7)] flex flex-col justify-between"
-            style={{
-              clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
-            }}
-          >
-            {/* Top decorative corner hazard badge */}
-            <div className="absolute top-0 right-0 w-24 h-5 cyber-hazard-cyan opacity-40 group-hover:opacity-70 transition-opacity pointer-events-none" />
+          {/* =================================================================
+              3 & 4 & 5. BRAND BLOCK (col-span-5)
+              ================================================================= */}
+          <div className="w-full min-[900px]:col-span-5 relative overflow-hidden bg-[#070d18]/60 border border-[#19e3f5]/25 p-6 sm:p-7 backdrop-blur-sm flex flex-col justify-between">
+            {/* Peeche bahut bada ghost outline text "PROTOFOS" (1px stroke, opacity .06), aadha neeche se cut */}
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-7 -left-3 text-[85px] sm:text-[115px] font-cyberpunk font-black italic tracking-tighter select-none pointer-events-none leading-none z-0"
+              style={{
+                WebkitTextStroke: '1px #19e3f5',
+                color: 'transparent',
+                opacity: 0.06,
+              }}
+            >
+              PROTOFOS
+            </div>
 
             <div className="space-y-4 relative z-10">
-              {/* Header Ticker */}
-              <div className="flex items-center justify-between text-[10px] font-spacemono text-[#19e3f5] tracking-widest uppercase border-b border-white/10 pb-2">
-                <span className="flex items-center gap-1.5 font-bold">
-                  <Terminal className="w-3.5 h-3.5 text-[#f6e81e]" />
-                  SYS_NODE // 01: COMMAND
-                </span>
-                <span className="text-[#f6e81e] bg-[#f6e81e]/10 px-2 py-0.5 rounded border border-[#f6e81e]/30">
-                  EST. 2026
-                </span>
-              </div>
-
-              {/* Logo & Festival Name */}
-              <div className="flex items-center gap-3.5 pt-1">
+              {/* Logo + Title */}
+              <div className="flex items-center gap-3.5">
                 <div
-                  className="p-2 bg-[#04070e] border border-[#f6e81e] shadow-[0_0_18px_rgba(246,232,30,0.4)] flex-shrink-0"
+                  className="p-1.5 bg-[#04070b] border border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.35)] flex-shrink-0"
                   style={{
-                    clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)'
+                    clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)',
                   }}
                 >
                   <img
                     src="/protofos-logo.png"
                     alt="Protofos Official Logo"
-                    className="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(246,232,30,0.8)]"
+                    className="h-9 w-auto object-contain drop-shadow-[0_0_8px_rgba(246,232,30,0.7)]"
                   />
                 </div>
                 <div>
-                  <h3 className="font-cyberpunk font-bold italic text-3xl sm:text-4xl text-white tracking-widest leading-none">
-                    PROTOFOS <span className="text-[#f6e81e] drop-shadow-[0_0_14px_rgba(246,232,30,0.7)]">2026</span>
+                  <h3 className="footer-glitch-title inline-block cursor-pointer font-cyberpunk font-bold italic text-2xl sm:text-3xl text-white tracking-widest leading-none">
+                    PROTOFOS <span className="text-[#f6e81e] drop-shadow-[0_0_12px_rgba(246,232,30,0.6)]">2026</span>
                   </h3>
-                  <span className="block font-spacemono text-[9.5px] text-[#19e3f5] tracking-[0.25em] uppercase mt-1">
+                  <span className="block font-spacemono text-[10px] sm:text-[11px] text-[#19e3f5] tracking-[0.2em] uppercase mt-1">
                     IIIT BHAGALPUR TECHNICAL BOARD
                   </span>
                 </div>
               </div>
 
-              {/* Motto Banner */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#f6e81e]/10 border-l-2 border-[#f6e81e] text-[#f6e81e] font-cyberpunk font-bold text-xs tracking-[0.18em] uppercase">
-                <span className="w-1.5 h-1.5 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e]" />
-                <span>IDEAS TODAY // A BRIGHTER TOMORROW</span>
+              {/* Tagline "IDEAS TODAY // A BRIGHTER TOMORROW" in yellow */}
+              <div className="pt-1">
+                <p className="font-cyberpunk font-bold text-xs sm:text-sm tracking-wider text-[#f6e81e] uppercase flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e]" />
+                  IDEAS TODAY // A BRIGHTER TOMORROW
+                </p>
               </div>
 
-              {/* Mission Statement */}
-              <p className="text-slate-300 font-sans text-xs sm:text-[13.5px] leading-relaxed pt-1">
-                The flagship technical festival uniting student engineers, hackers, and creators across
-                robotics, deep software, autonomous avionics, algorithmic markets, and offensive security.
-                Engineered with heart and electricity.
+              {/* Paragraph #aab4c0, line-height 1.7 */}
+              <p className="text-[#aab4c0] text-xs sm:text-[13.5px] leading-[1.7]">
+                The premier annual technical fest pushing boundaries in robotics, algorithmic engineering,
+                cybersecurity, and space avionics. Built by student innovators to illuminate the future.
               </p>
             </div>
 
-            {/* Bottom Telemetry Strip */}
-            {/* <div className="mt-6 pt-3.5 border-t border-white/10 flex flex-wrap items-center gap-2.5 text-[9.5px] font-spacemono text-slate-400">
-              <span className="flex items-center gap-1.5 text-[#19e3f5] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#19e3f5] animate-ping" />
-                GRID: ONLINE
-              </span>
-              <span className="text-white/20">•</span>
-              <span className="text-slate-300">LATENCY: 12ms</span>
-              <span className="text-white/20">•</span>
-              <span className="text-[#f6e81e] font-bold">CIPHER: 512-BIT</span>
-              <span className="text-white/20">•</span>
-              <span className="text-slate-400">SECTOR: NIGHT CITY</span>
-            </div> */}
-          </div>
-
-          {/* CARD 2: DIRECTORY // NAVIGATION (3 Cols) */}
-          <div
-            className="lg:col-span-3 bg-[#070d18]/85 border border-[#f6e81e]/30 p-6 backdrop-blur-md relative overflow-hidden group shadow-[0_8px_35px_rgba(0,0,0,0.7)] flex flex-col justify-between"
-            style={{
-              clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)'
-            }}
-          >
-            {/* Top decorative hazard stripes */}
-            <div className="absolute top-0 right-0 w-20 h-4 cyber-hazard opacity-35 group-hover:opacity-70 transition-opacity pointer-events-none" />
-
-            <div>
-              {/* Header Ticker */}
-              <div className="flex items-center justify-between text-[10px] font-spacemono text-[#f6e81e] tracking-widest uppercase border-b border-white/10 pb-2 mb-4">
-                <span className="flex items-center gap-1.5 font-bold">
-                  <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e]" />
-                  01 // DIRECTORY
-                </span>
-                <span className="text-slate-400 text-[9px]">NAV_MATRIX</span>
-              </div>
-
-              {/* Navigation Links with Chamfered Pill Hover */}
-              <ul className="space-y-2">
-                {navLinks.map((item) => (
-                  <li key={item.name}>
-                    <a
-                      href={item.href}
-                      className="group/link flex items-center justify-between p-2 rounded bg-black/30 hover:bg-[#19e3f5]/15 border border-white/5 hover:border-[#19e3f5]/50 transition-all duration-200"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <span className="font-spacemono text-[10px] font-bold text-[#f6e81e] group-hover/link:text-[#19e3f5] transition-colors">
-                          [{item.code}]
-                        </span>
-                        <div>
-                          <span className="font-cyberpunk font-bold text-xs text-slate-200 group-hover/link:text-white tracking-wider block">
-                            {item.name}
-                          </span>
-                          <span className="font-mono text-[9px] text-slate-500 group-hover/link:text-[#19e3f5]/80 block">
-                            {item.desc}
-                          </span>
-                        </div>
-                      </div>
-                      <span className="text-white/20 group-hover/link:text-[#19e3f5] group-hover/link:translate-x-1 transition-all text-xs">
-                        &rarr;
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Micro Badge */}
-            <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-[9px] font-spacemono text-slate-500">
-              <span>WAYPOINTS: 05 ACTIVE</span>
-              <span className="text-[#19e3f5]">HEX: 08 ARENAS</span>
-            </div>
-          </div>
-
-          {/* CARD 3: TRANSMISSIONS & TOP CTA (4 Cols) */}
-          <div
-            className="lg:col-span-4 bg-[#070d18]/85 border border-[#19e3f5]/30 p-6 backdrop-blur-md relative overflow-hidden group shadow-[0_8px_35px_rgba(0,0,0,0.7)] flex flex-col justify-between"
-            style={{
-              clipPath: 'polygon(20px 0, 100% 0, 100% 100%, 0 100%, 0 20px)'
-            }}
-          >
-            {/* Top decorative cyan hazard corner */}
-            <div className="absolute top-0 left-0 w-20 h-4 cyber-hazard-cyan opacity-35 group-hover:opacity-70 transition-opacity pointer-events-none" />
-
-            <div>
-              {/* Header Ticker */}
-              <div className="flex items-center justify-between text-[10px] font-spacemono text-[#19e3f5] tracking-widest uppercase border-b border-white/10 pb-2 mb-4">
-                <span className="flex items-center gap-1.5 font-bold">
-                  <Radio className="w-3.5 h-3.5 text-[#19e3f5] animate-pulse" />
-                  02 // TRANSMISSIONS
-                </span>
-                <span className="text-[#19e3f5] text-[9px]">ENCRYPTED</span>
-              </div>
-
-              {/* Social Channels 2x2 Grid */}
-              <div className="grid grid-cols-2 gap-2 mb-5">
-                {socialLinks.map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-2.5 bg-black/40 hover:bg-[#f6e81e]/15 border border-white/5 hover:border-[#f6e81e]/60 transition-all duration-200 group/soc flex flex-col justify-between rounded"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-spacemono text-[9px] font-bold px-1.5 py-0.5 bg-white/5 group-hover/soc:bg-[#f6e81e] text-[#19e3f5] group-hover/soc:text-[#04070b] transition-colors rounded">
-                        {s.icon}
-                      </span>
-                      <ExternalLink className="w-2.5 h-2.5 text-slate-500 group-hover/soc:text-[#f6e81e] transition-colors" />
-                    </div>
-                    <div className="mt-2">
-                      <span className="font-cyberpunk font-bold text-[11px] text-slate-200 group-hover/soc:text-[#f6e81e] tracking-wider block">
-                        {s.name}
-                      </span>
-                      <span className="font-spacemono text-[8.5px] text-slate-500 block">
-                        {s.freq}
-                      </span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* RETURN TO SKYLINE [TOP] CTA BUTTON */}
-            <div className="pt-2">
-              <button
-                onClick={scrollToTop}
-                className="w-full py-3.5 px-4 bg-gradient-to-r from-[#0d1627] via-[#101b33] to-[#0d1627] hover:from-[#f6e81e] hover:via-[#ffe600] hover:to-[#f6e81e] text-[#f6e81e] hover:text-[#04070b] border-2 border-[#f6e81e] shadow-[0_0_20px_rgba(246,232,30,0.35)] hover:shadow-[0_0_35px_rgba(246,232,30,0.85)] transition-all duration-300 flex items-center justify-center gap-2.5 text-xs sm:text-[13px] font-cyberpunk font-bold italic uppercase tracking-widest cursor-pointer group/btn"
+            {/* 5. Status Strip in Clip-Corner HUD Box */}
+            <div className="mt-6 pt-3 relative z-10">
+              <div
+                className="px-3.5 py-2 bg-[#04070b]/90 border border-[#19e3f5]/35 flex flex-wrap items-center gap-2 text-[10px] font-spacemono text-[#8793a2]"
                 style={{
-                  clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
                 }}
               >
-                <ArrowUp className="w-4 h-4 text-[#f6e81e] group-hover/btn:text-[#04070b] group-hover/btn:-translate-y-1 transition-transform" />
-                <span>RETURN TO SKYLINE [TOP]</span>
-                <span className="text-[10px] font-spacemono opacity-60">▲</span>
-              </button>
-              {/* <div className="mt-2 text-center">
-                <span className="font-spacemono text-[9px] text-slate-500 tracking-widest uppercase">
-                  BHAGALPUR CENTRAL SYSTEM // SECURE TERMINAL
+                <div className="flex items-center gap-1.5 text-[#19e3f5] font-bold">
+                  {/* Cyan blinking dot */}
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#19e3f5] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#19e3f5]" />
+                  </span>
+                  <span>GRID: ONLINE</span>
+                </div>
+                <span className="text-[#19e3f5]">•</span>
+                <span className="text-slate-200">
+                  LATENCY: <span className="text-[#f6e81e] font-bold">{latency}ms</span>
                 </span>
-              </div> */}
+                <span className="text-[#19e3f5]">•</span>
+                <span className="text-[#19e3f5]">CIPHER: 256-BIT</span>
+                <span className="text-[#8793a2]">// NIGHT CITY</span>
+              </div>
+            </div>
+          </div>
+
+          {/* =================================================================
+              6 & 7. RIGHT COLUMNS: 01 // DIRECTORY & 02 // TRANSMISSIONS (col-span-7)
+              ================================================================= */}
+          <div className="w-full min-[900px]:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+
+            {/* COLUMN 01 // DIRECTORY */}
+            <div className="bg-[#070d18]/60 border border-[#18222e] p-6 backdrop-blur-sm flex flex-col justify-between">
+              <div>
+                {/* Heading with square marker */}
+                <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-[#18222e] mb-4">
+                  <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
+                  <span className="font-bold">01 // DIRECTORY</span>
+                </div>
+
+                {/* Links: Space Mono uppercase, hover yellow, left slide-in "▸" arrow 150ms */}
+                <ul className="space-y-2">
+                  {directoryLinks.map((item) => (
+                    <li key={item.name}>
+                      <a
+                        href={item.href}
+                        className={`group flex items-center py-1 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 ${
+                          item.active ? 'text-[#f6e81e]' : 'text-[#8793a2] hover:text-[#f6e81e]'
+                        }`}
+                      >
+                        {/* Slide-in arrow: cyan to yellow on hover, 150ms */}
+                        <span
+                          className={`inline-block mr-2 text-xs transition-all duration-150 transform ${
+                            item.active
+                              ? 'text-[#f6e81e] translate-x-0 opacity-100'
+                              : 'text-[#19e3f5] group-hover:text-[#f6e81e] -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
+                          }`}
+                        >
+                          ▸
+                        </span>
+                        <span>{item.name}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6 pt-3 border-t border-[#18222e] flex items-center justify-between text-[9px] font-spacemono text-[#8793a2]">
+                <span>INDEX // ACTIVE</span>
+                <span className="text-[#19e3f5]">SEC_ID: 0x26</span>
+              </div>
+            </div>
+
+            {/* COLUMN 02 // TRANSMISSIONS & RETURN TO SKYLINE */}
+            <div className="bg-[#070d18]/60 border border-[#18222e] p-6 backdrop-blur-sm flex flex-col justify-between">
+              <div>
+                {/* Heading with square marker */}
+                <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-[#18222e] mb-4">
+                  <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
+                  <span className="font-bold">02 // TRANSMISSIONS</span>
+                </div>
+
+                {/* Socials: Lucide icons, 36px clip-corner buttons, hover glow */}
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  {socialLinks.map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={s.name}
+                      className="w-9 h-9 bg-[#04070b] border border-[#19e3f5]/30 hover:border-[#f6e81e] text-[#19e3f5] hover:text-[#f6e81e] flex items-center justify-center transition-all duration-200 hover:shadow-[0_0_15px_rgba(246,232,30,0.5)] group"
+                      style={{
+                        clipPath: 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
+                      }}
+                    >
+                      <span className="transition-transform duration-150 group-hover:scale-110">
+                        {s.icon}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* 7. RETURN TO SKYLINE Button */}
+              <div>
+                <button
+                  type="button"
+                  onClick={scrollToTop}
+                  className="w-full py-3 px-4 bg-transparent hover:bg-[#f6e81e] text-[#f6e81e] hover:text-[#04070b] border-2 border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.25)] hover:shadow-[0_0_24px_rgba(246,232,30,0.8)] transition-all duration-200 flex items-center justify-center gap-2 text-xs font-cyberpunk font-bold italic uppercase tracking-widest cursor-pointer group/btn"
+                  style={{
+                    clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))',
+                  }}
+                >
+                  <ArrowUp className="w-3.5 h-3.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                  <span>RETURN TO SKYLINE</span>
+                </button>
+              </div>
             </div>
 
           </div>
@@ -332,31 +375,34 @@ export const Footer = () => {
         </div>
 
         {/* =====================================================================
-            4. BOTTOM STATUS BAR & SECURITY CLEARANCE
+            8. BOTTOM BAR: COPYRIGHT + LEGAL LINKS + CORNER BRACKETS
             ===================================================================== */}
-        <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] font-spacemono text-slate-400">
+        <div className="pt-6 border-t border-[#18222e] flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] font-spacemono text-[#8793a2]">
+          
+          {/* Left bracket & copyright */}
           <div className="flex items-center gap-2 text-center md:text-left">
-            <span className="w-1.5 h-1.5 bg-[#f6e81e] rounded-full shadow-[0_0_6px_#f6e81e]" />
+            <span className="text-[#19e3f5] font-bold">[</span>
             <span>&copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR.</span>
+            <span className="text-[#19e3f5] font-bold">]</span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px]">
-            {/* <span className="hover:text-[#f6e81e] transition-colors cursor-pointer flex items-center gap-1">
-              <Shield className="w-3 h-3 text-[#19e3f5]" /> PRIVACY PROTOCOL
-            </span> */}
-            <span className="text-white/20">•</span>
-            <span className="hover:text-[#19e3f5] transition-colors cursor-pointer">
-              TERMS OF ENGAGEMENT
-            </span>
-            <span className="text-white/20">•</span>
-            <span className="hover:text-[#f6e81e] transition-colors cursor-pointer">
+          {/* Legal links with cyan bullet separators & yellow hover */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            <span className="text-[#19e3f5] font-bold">[</span>
+            <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
+              PRIVACY POLICY
+            </a>
+            <span className="text-[#19e3f5]">•</span>
+            <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
+              TERMS OF SERVICE
+            </a>
+            <span className="text-[#19e3f5]">•</span>
+            <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
               CODE OF CONDUCT
-            </span>
-            <span className="text-white/20">•</span>
-            {/* <span className="text-[#19e3f5] font-bold bg-[#19e3f5]/10 px-2 py-0.5 rounded border border-[#19e3f5]/30">
-              AUTH: 200 OK
-            </span> */}
+            </a>
+            <span className="text-[#19e3f5] font-bold">]</span>
           </div>
+
         </div>
 
       </div>
