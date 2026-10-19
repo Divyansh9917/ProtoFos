@@ -3,7 +3,7 @@
 export class ScrollDescent {
   constructor({ section, canvas, frameCount, path, onProgress, onLoad, damping = 16, maxDpr = 2 }) {
     Object.assign(this, { section, canvas, frameCount, path, onProgress, onLoad, damping, maxDpr });
-    this.ctx = canvas.getContext('2d', { alpha: false });
+    this.ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: false });
     this.frames = new Array(frameCount);
     this.loaded = 0;
     this.target = 0; 
@@ -12,6 +12,9 @@ export class ScrollDescent {
     this.raf = 0; 
     this.last = 0;
     this.scrollTimeout = null;
+    this.preloadDone = false;
+    this.priorityQueue = [];   // frames near current scroll to load first
+    this.priorityLoading = false;
     this.reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this.onScroll = this.onScroll.bind(this);
@@ -55,11 +58,37 @@ export class ScrollDescent {
     return max <= 0 ? 0 : Math.min(1, Math.max(0, -r.top / max));
   }
 
+  // Priority-load frames around the current scroll position so nearby frames are ready
+  queuePriority(center) {
+    if (this.preloadDone) return;
+    const radius = 15;
+    const lo = Math.max(0, center - radius);
+    const hi = Math.min(this.frameCount - 1, center + radius);
+    for (let i = lo; i <= hi; i++) {
+      if (!this.frames[i] && !this.priorityQueue.includes(i)) {
+        this.priorityQueue.push(i);
+      }
+    }
+    if (!this.priorityLoading) this.flushPriority();
+  }
+
+  async flushPriority() {
+    this.priorityLoading = true;
+    while (this.priorityQueue.length > 0) {
+      const i = this.priorityQueue.shift();
+      if (!this.frames[i]) await this.load(i);
+    }
+    this.priorityLoading = false;
+  }
+
   onScroll() {
     const p = this.progress();
     this.target = p * (this.frameCount - 1);
     if (this.onProgress) this.onProgress(p); // UI (counter, chapters) follows real scroll instantly
     this.kick();
+
+    // Priority-load frames around current scroll position
+    this.queuePriority(Math.round(this.target));
 
     // Snap to exact crisp integer frame when scrolling stops (eliminates blur completely)
     clearTimeout(this.scrollTimeout);
@@ -67,7 +96,7 @@ export class ScrollDescent {
       this.target = Math.round(this.target);
       this.current = this.target;
       this.draw(this.target);
-    }, 40);
+    }, 30);
   }
 
   kick() { 
@@ -79,12 +108,12 @@ export class ScrollDescent {
 
   tick(now) {
     this.raf = 0;
-    const dt = Math.min(0.05, (now - this.last) / 1000); 
+    const dt = Math.min(0.064, (now - this.last) / 1000); 
     this.last = now;
     const diff = this.target - this.current;
     
     // When difference is small, snap directly to integer frame so it never settles on a blurry blend
-    if (this.reduce || Math.abs(diff) < 0.08) {
+    if (this.reduce || Math.abs(diff) < 0.12) {
       this.current = Math.round(this.target);
     } else {
       this.current = this.current + diff * (1 - Math.exp(-dt * this.damping));
@@ -143,6 +172,7 @@ export class ScrollDescent {
   }
 
   load(i) {
+    if (this.frames[i]) return Promise.resolve(); // skip if already loaded
     return new Promise(res => {
       const img = new Image(); 
       img.decoding = 'async'; 
@@ -161,7 +191,8 @@ export class ScrollDescent {
     await this.load(0); 
     this.draw(0);
     const order = [], seen = new Set();
-    for (const step of [12, 6, 3, 1]) {
+    // Tighter step progression fills nearby gaps faster
+    for (const step of [8, 4, 2, 1]) {
       for (let i = 0; i < this.frameCount; i += step) {
         if (!seen.has(i)) { 
           seen.add(i); 
@@ -173,7 +204,9 @@ export class ScrollDescent {
     const worker = async () => { 
       while (c < order.length) await this.load(order[c++]); 
     };
-    const start = () => Promise.all(Array.from({ length: 6 }, worker)).then(() => this.draw(this.current));
-    ('requestIdleCallback' in window) ? requestIdleCallback(start, { timeout: 800 }) : setTimeout(start, 200);
+    // 8 parallel workers, start immediately (no idle callback delay)
+    await Promise.all(Array.from({ length: 8 }, worker));
+    this.preloadDone = true;
+    this.draw(this.current);
   }
 }
