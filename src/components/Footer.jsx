@@ -67,11 +67,6 @@ export const Footer = () => {
       {/* Soft gradient fade from previous section to avoid hard cut */}
       <div className="absolute inset-x-0 -top-20 h-20 bg-gradient-to-b from-transparent to-[#04070b] pointer-events-none z-20" />
 
-      {/* 1px Ultra-Thin Neon Laser Line */}
-      <div className="relative z-30 w-full h-[1px] bg-gradient-to-r from-[#19e3f5] via-[#f6e81e] to-[#ff2bd6] shadow-[0_0_6px_rgba(25,227,245,0.4)] overflow-hidden">
-        {/* Scanning glitch segment (every ~6s) */}
-        <div className="footer-glitch-scan absolute top-0 h-full w-24 bg-white shadow-[0_0_8px_#ffffff,0_0_4px_#19e3f5]" />
-      </div>
 
       {/* =====================================================================
           2. BACKGROUND: 2-LAYER INLINE SVG SKYLINE + FLICKERING WINDOW LIGHTS
