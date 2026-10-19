@@ -40,7 +40,7 @@ export const Descent = () => {
       canvas,
       frameCount: 240,
       path: (i) => `/frames/f_${String(i + 1).padStart(4, '0')}.webp?v=2`,
-      damping: 9, // Tunable: 6-12 (default 9)
+      damping: 14, // Responsive and snappy tracking with zero lag
       maxDpr: 2,
       onProgress: (p) => {
         if (bar) {

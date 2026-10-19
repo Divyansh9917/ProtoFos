@@ -1,7 +1,7 @@
-/* ScrollDescent: smooth canvas image-sequence scrubber with time-based damping.
+/* ScrollDescent: smooth canvas image-sequence scrubber with snap-to-frame precision.
    Imported and modularized for React + Vite. */
 export class ScrollDescent {
-  constructor({ section, canvas, frameCount, path, onProgress, onLoad, damping = 9, maxDpr = 2 }) {
+  constructor({ section, canvas, frameCount, path, onProgress, onLoad, damping = 16, maxDpr = 2 }) {
     Object.assign(this, { section, canvas, frameCount, path, onProgress, onLoad, damping, maxDpr });
     this.ctx = canvas.getContext('2d', { alpha: false });
     this.frames = new Array(frameCount);
@@ -11,6 +11,7 @@ export class ScrollDescent {
     this.active = false; 
     this.raf = 0; 
     this.last = 0;
+    this.scrollTimeout = null;
     this.reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this.onScroll = this.onScroll.bind(this);
@@ -41,6 +42,7 @@ export class ScrollDescent {
   }
 
   destroy() {
+    clearTimeout(this.scrollTimeout);
     window.removeEventListener('scroll', this.onScroll);
     window.removeEventListener('resize', this.onResize);
     if (this.observer) this.observer.disconnect();
@@ -58,6 +60,14 @@ export class ScrollDescent {
     this.target = p * (this.frameCount - 1);
     if (this.onProgress) this.onProgress(p); // UI (counter, chapters) follows real scroll instantly
     this.kick();
+
+    // Snap to exact crisp integer frame when scrolling stops (eliminates blur completely)
+    clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+      this.target = Math.round(this.target);
+      this.current = this.target;
+      this.draw(this.target);
+    }, 40);
   }
 
   kick() { 
@@ -72,13 +82,16 @@ export class ScrollDescent {
     const dt = Math.min(0.05, (now - this.last) / 1000); 
     this.last = now;
     const diff = this.target - this.current;
-    // Frame-rate independent damping: same feel at 60 / 120 / 144 Hz
-    this.current = this.reduce || Math.abs(diff) < 0.003 
-      ? this.target 
-      : this.current + diff * (1 - Math.exp(-dt * this.damping));
+    
+    // When difference is small, snap directly to integer frame so it never settles on a blurry blend
+    if (this.reduce || Math.abs(diff) < 0.08) {
+      this.current = Math.round(this.target);
+    } else {
+      this.current = this.current + diff * (1 - Math.exp(-dt * this.damping));
+    }
     
     this.draw(this.current);
-    if (Math.abs(this.target - this.current) > 0.003 && this.active) {
+    if (Math.abs(this.target - this.current) > 0.001 && this.active) {
       this.raf = requestAnimationFrame(this.tick);
     }
   }
@@ -93,32 +106,31 @@ export class ScrollDescent {
   }
 
   draw(pos) {
-    const a = Math.max(0, Math.min(this.frameCount - 1, Math.floor(pos)));
-    // Blend only while easing slowly (fast flings don't need it); quantised so we never redraw identical pixels
-    const slow = Math.abs(this.target - pos) < 3;
-    const f = slow ? Math.round((pos - a) * 8) / 8 : 0;
-    const key = a + ':' + f + ':' + this.cw;
+    // Snap to nearest integer frame — eliminates ghosting / blur from blending two frames
+    const a = Math.max(0, Math.min(this.frameCount - 1, Math.round(pos)));
+    const key = a + ':' + this.cw + ':' + this.ch;
     if (key === this.lastKey) return;
     this.lastKey = key;
     const A = this.nearest(a);
     if (!A) return;
-    this.paint(A, 1);
-    if (f > 0 && a + 1 < this.frameCount) { 
-      const B = this.nearest(a + 1); 
-      if (B && B !== A) this.paint(B, f); 
-    }
+    this.paint(A);
   }
 
-  paint(img, alpha) {
-    const { ctx, cw, ch } = this, iw = img.naturalWidth, ih = img.naturalHeight;
-    // Watermark crop: scale by ~1.11 with slight top-left anchor to push bottom-right ✦ watermark out of canvas without cropping Spider-Man
-    const s = Math.max(cw / iw, ch / ih) * 1.11;
-    const w = iw * s, h = ih * s;
-    const x = (cw - w) * 0.44;
-    const y = (ch - h) * 0.44;
-    ctx.globalAlpha = alpha; 
+  paint(img) {
+    const { ctx, cw, ch } = this;
+    const iw = img.naturalWidth || img.width;
+    const ih = img.naturalHeight || img.height;
+    if (!iw || !ih) return;
+
+    // Centered cover scale, native aspect ratio without artificial stretch/crop
+    const s = Math.max(cw / iw, ch / ih);
+    const w = iw * s;
+    const h = ih * s;
+    const x = (cw - w) / 2;
+    const y = (ch - h) / 2;
+
+    ctx.globalAlpha = 1; 
     ctx.drawImage(img, x, y, w, h); 
-    ctx.globalAlpha = 1;
   }
 
   resize() {
