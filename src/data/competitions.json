@@ -1,0 +1,198 @@
+{
+  "fest": "PROTOFOS 2026",
+  "dates": "31 Oct - 01 Nov 2026",
+  "categories": [
+    {
+      "slug": "all",
+      "name": "All"
+    },
+    {
+      "slug": "software-ai",
+      "name": "Software & AI"
+    },
+    {
+      "slug": "robotics",
+      "name": "Robotics"
+    },
+    {
+      "slug": "markets",
+      "name": "Markets"
+    }
+  ],
+  "competitions": [
+    {
+      "order": 1,
+      "slug": "synapse-arena",
+      "name": "Synapse Arena",
+      "formerName": null,
+      "category": "Software & AI",
+      "categorySlug": "software-ai",
+      "presentedBy": "Vector × AIC",
+      "instagram": [
+        "@aic.iiitbh",
+        "@vector.iiitbh"
+      ],
+      "accent": "#ff2a2a",
+      "hexImage": "hex/synapse-arena.webp",
+      "bannerImage": "banners/synapse-arena.webp",
+      "date": "2026-10-31/2026-11-01",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": null,
+      "prizePool": null,
+      "deadline": null,
+      "format": null,
+      "rounds": null,
+      "eligibility": null,
+      "about": null,
+      "rules": [],
+      "timeline": [],
+      "registerUrl": null,
+      "rulebookUrl": null
+    },
+    {
+      "order": 2,
+      "slug": "syntax-sprint",
+      "name": "Syntax Sprint",
+      "formerName": "PYC Coding Contest",
+      "category": "Software & AI",
+      "categorySlug": "software-ai",
+      "presentedBy": "PYC",
+      "instagram": [
+        "@protofos_iiitbh",
+        "@pyc.iiitbh"
+      ],
+      "accent": "#f6e81e",
+      "hexImage": "hex/syntax-sprint.webp",
+      "bannerImage": "banners/syntax-sprint.webp",
+      "date": "2026-10-31/2026-11-01",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": null,
+      "prizePool": null,
+      "deadline": null,
+      "format": null,
+      "rounds": null,
+      "eligibility": null,
+      "about": null,
+      "rules": [],
+      "timeline": [],
+      "registerUrl": null,
+      "rulebookUrl": null
+    },
+    {
+      "order": 3,
+      "slug": "bull-run",
+      "name": "Bull Run",
+      "formerName": "Quanta'26 Campus Market",
+      "category": "Markets",
+      "categorySlug": "markets",
+      "presentedBy": "E-Cell × Krypsis",
+      "instagram": [
+        "@protofos_iiitbh",
+        "@ecell_iiitbh"
+      ],
+      "accent": "#d8e2f0",
+      "hexImage": "hex/bull-run.webp",
+      "bannerImage": "banners/bull-run.webp",
+      "date": "2026-10-31/2026-11-01",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": null,
+      "prizePool": null,
+      "deadline": null,
+      "format": null,
+      "rounds": null,
+      "eligibility": null,
+      "about": null,
+      "rules": [],
+      "timeline": [],
+      "registerUrl": null,
+      "rulebookUrl": null
+    },
+    {
+      "order": 4,
+      "slug": "aerorush",
+      "name": "Aerorush",
+      "formerName": "Drone Racing",
+      "category": "Robotics",
+      "categorySlug": "robotics",
+      "presentedBy": "REC",
+      "instagram": [
+        "@protofos_iiitbh",
+        "@rec_iiitbh"
+      ],
+      "accent": "#6bff2a",
+      "hexImage": "hex/aerorush.webp",
+      "bannerImage": "banners/aerorush.webp",
+      "date": "2026-10-31/2026-11-01",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": null,
+      "prizePool": null,
+      "deadline": null,
+      "format": null,
+      "rounds": null,
+      "eligibility": null,
+      "about": null,
+      "rules": [],
+      "timeline": [],
+      "registerUrl": null,
+      "rulebookUrl": null
+    },
+    {
+      "order": 5,
+      "slug": "bot-battleground",
+      "name": "Bot Battleground",
+      "formerName": "Robosoccer + Roborace",
+      "category": "Robotics",
+      "categorySlug": "robotics",
+      "presentedBy": "REC",
+      "instagram": [
+        "@protofos_iiitbh",
+        "@rec_iiitbh"
+      ],
+      "accent": "#ff3b3b",
+      "hexImage": "hex/bot-battleground.webp",
+      "bannerImage": "banners/bot-battleground.webp",
+      "date": "2026-10-31/2026-11-01",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": null,
+      "prizePool": null,
+      "deadline": null,
+      "format": null,
+      "rounds": null,
+      "eligibility": null,
+      "about": null,
+      "rules": [],
+      "timeline": [],
+      "registerUrl": null,
+      "rulebookUrl": null
+    },
+    {
+      "order": 6,
+      "slug": "securathon",
+      "name": "Securathon 2026",
+      "formerName": null,
+      "category": "Software & AI",
+      "categorySlug": "software-ai",
+      "presentedBy": "Devc × Cysec",
+      "instagram": [
+        "@cysec_iiitbh",
+        "@devc.iiitbh"
+      ],
+      "accent": "#19e3f5",
+      "hexImage": "hex/securathon.webp",
+      "bannerImage": "banners/securathon.webp",
+      "date": "2026-10-31/2026-11-01",
+      "venue": "IIIT Bhagalpur",
+      "teamSize": null,
+      "prizePool": null,
+      "deadline": null,
+      "format": null,
+      "rounds": null,
+      "eligibility": null,
+      "about": null,
+      "rules": [],
+      "timeline": [],
+      "registerUrl": null,
+      "rulebookUrl": null
+    }
+  ]
+}

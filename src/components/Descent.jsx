@@ -70,17 +70,17 @@ export const Descent = () => {
   }, []);
 
   return (
-    <section 
-      ref={sectionRef} 
-      id="descent" 
+    <section
+      ref={sectionRef}
+      id="descent"
       aria-label="Cinematic city descent"
       className="relative w-full h-[400vh] lg:h-[600vh] bg-[#04070b] select-none"
     >
       {/* Sticky Stage */}
       <div className="sticky top-0 h-screen h-[100svh] w-full overflow-hidden bg-[#04070b]">
-        
+
         {/* Soft handoff 22vh top gradient (Hero -> Frames) */}
-        <div 
+        <div
           className="absolute top-0 left-0 right-0 h-[22vh] z-10 pointer-events-none"
           style={{
             background: 'linear-gradient(to bottom, #04070b 0%, rgba(4, 7, 11, 0.7) 40%, transparent 100%)'
@@ -88,7 +88,7 @@ export const Descent = () => {
         />
 
         {/* Soft handoff 22vh bottom gradient (Frames -> Avenue) */}
-        <div 
+        <div
           className="absolute bottom-0 left-0 right-0 h-[22vh] z-10 pointer-events-none"
           style={{
             background: 'linear-gradient(to top, #04070b 0%, rgba(4, 7, 11, 0.7) 40%, transparent 100%)'
@@ -96,17 +96,17 @@ export const Descent = () => {
         />
 
         {/* Smooth Canvas Scrubber */}
-        <canvas 
-          ref={canvasRef} 
-          className="absolute inset-0 w-full h-full block" 
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full block"
           aria-label="Cinematic Spider-Man city descent"
         />
 
         {/* Top Progress Bar */}
-        <div 
-          ref={barRef} 
-          className="absolute left-0 top-0 h-[3px] w-full bg-[#f6e81e] origin-left z-30 shadow-[0_0_12px_#f6e81e]" 
-          style={{ transform: 'scaleX(0)' }} 
+        <div
+          ref={barRef}
+          className="absolute left-0 top-0 h-[3px] w-full bg-[#f6e81e] origin-left z-30 shadow-[0_0_12px_#f6e81e]"
+          style={{ transform: 'scaleX(0)' }}
         />
 
         {/* Altitude Counter HUD (Right-Top) */}
@@ -114,8 +114,8 @@ export const Descent = () => {
           <div className="text-[10px] sm:text-xs font-bold tracking-[0.24em] text-[#19e3f5] filter drop-shadow-[0_0_8px_rgba(25,227,245,0.75)] uppercase mb-0.5">
             ALTITUDE SENSOR
           </div>
-          <b 
-            ref={altRef} 
+          <b
+            ref={altRef}
             className="block text-3xl sm:text-4xl lg:text-5xl font-cinzel font-black tracking-wider text-[#f6e81e] filter drop-shadow-[0_0_14px_rgba(246,232,30,0.85)] leading-tight"
           >
             840 M
@@ -129,11 +129,10 @@ export const Descent = () => {
             return (
               <h3
                 key={ch.text}
-                className={`absolute left-1/2 -translate-x-1/2 bottom-0 w-full font-cinzel sm:font-cyberpunk font-black italic text-2xl sm:text-4xl lg:text-5xl text-white tracking-[0.2em] uppercase transition-all duration-500 ease-out filter drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] ${
-                  isActive 
-                    ? 'opacity-100 translate-y-0 scale-100' 
+                className={`absolute left-1/2 -translate-x-1/2 bottom-0 w-full font-cinzel sm:font-cyberpunk font-black italic text-2xl sm:text-4xl lg:text-5xl text-white tracking-[0.2em] uppercase transition-all duration-500 ease-out filter drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] ${isActive
+                    ? 'opacity-100 translate-y-0 scale-100'
                     : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
-                }`}
+                  }`}
               >
                 {ch.text}
               </h3>
@@ -144,13 +143,13 @@ export const Descent = () => {
       </div>
 
       {/* Frame Loading Bar (Only visible when user enters #descent and frames are loading) */}
-      <div 
-        ref={loadRef} 
-        className="fixed left-0 bottom-0 h-[2.5px] bg-[#19e3f5] z-50 transition-opacity duration-300 pointer-events-none shadow-[0_0_10px_#19e3f5]" 
-        style={{ 
+      <div
+        ref={loadRef}
+        className="fixed left-0 bottom-0 h-[2.5px] bg-[#19e3f5] z-50 transition-opacity duration-300 pointer-events-none shadow-[0_0_10px_#19e3f5]"
+        style={{
           width: `${loadProgress * 100}%`,
-          opacity: isSectionVisible && loadProgress < 1 ? 1 : 0 
-        }} 
+          opacity: isSectionVisible && loadProgress < 1 ? 1 : 0
+        }}
       />
     </section>
   );
