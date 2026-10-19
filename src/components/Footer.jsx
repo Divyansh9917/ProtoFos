@@ -68,9 +68,9 @@ export const Footer = () => {
       <div className="absolute inset-x-0 -top-20 h-20 bg-gradient-to-b from-transparent to-[#04070b] pointer-events-none z-20" />
 
       {/* 1px Ultra-Thin Neon Laser Line */}
-      <div className="relative z-30 w-full h-[1px] bg-gradient-to-r from-[#19e3f5] via-[#f6e81e] to-[#ff2bd6] shadow-[0_0_8px_rgba(25,227,245,0.5)] overflow-hidden">
+      <div className="relative z-30 w-full h-[1px] bg-gradient-to-r from-[#19e3f5] via-[#f6e81e] to-[#ff2bd6] shadow-[0_0_6px_rgba(25,227,245,0.4)] overflow-hidden">
         {/* Scanning glitch segment (every ~6s) */}
-        <div className="footer-glitch-scan absolute top-0 h-full w-24 bg-white shadow-[0_0_10px_#ffffff,0_0_6px_#19e3f5]" />
+        <div className="footer-glitch-scan absolute top-0 h-full w-24 bg-white shadow-[0_0_8px_#ffffff,0_0_4px_#19e3f5]" />
       </div>
 
       {/* =====================================================================
@@ -188,7 +188,7 @@ export const Footer = () => {
           MAIN CONTAINER: RESPONSIVE (<900px columns stack, brand upar, links 2-col)
           ===================================================================== */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-10 relative z-10">
-        
+
         {/* Main Grid: below 900px stacks cleanly */}
         <div className="flex flex-col min-[900px]:grid min-[900px]:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 mb-10">
 
@@ -296,17 +296,15 @@ export const Footer = () => {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className={`group flex items-center py-1 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 ${
-                          item.active ? 'text-[#f6e81e]' : 'text-[#8793a2] hover:text-[#f6e81e]'
-                        }`}
+                        className={`group flex items-center py-1 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 ${item.active ? 'text-[#f6e81e]' : 'text-[#8793a2] hover:text-[#f6e81e]'
+                          }`}
                       >
                         {/* Slide-in arrow: cyan to yellow on hover, 150ms */}
                         <span
-                          className={`inline-block mr-2 text-xs transition-all duration-150 transform ${
-                            item.active
+                          className={`inline-block mr-2 text-xs transition-all duration-150 transform ${item.active
                               ? 'text-[#f6e81e] translate-x-0 opacity-100'
                               : 'text-[#19e3f5] group-hover:text-[#f6e81e] -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
-                          }`}
+                            }`}
                         >
                           ▸
                         </span>
@@ -378,7 +376,7 @@ export const Footer = () => {
             8. BOTTOM BAR: COPYRIGHT + LEGAL LINKS + CORNER BRACKETS
             ===================================================================== */}
         <div className="pt-6 border-t border-[#18222e] flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] font-spacemono text-[#8793a2]">
-          
+
           {/* Left bracket & copyright */}
           <div className="flex items-center gap-2 text-center md:text-left">
             <span className="text-[#19e3f5] font-bold">[</span>
