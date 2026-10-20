@@ -110,7 +110,7 @@ export const Descent = () => {
         />
 
         {/* Altitude Counter HUD (Right-Top) */}
-        <div className="absolute right-6 sm:right-12 top-24 sm:top-28 z-20 text-right font-spacemono select-none pointer-events-none">
+        {/* <div className="absolute right-6 sm:right-12 top-24 sm:top-28 z-20 text-right font-spacemono select-none pointer-events-none">
           <div className="text-[10px] sm:text-xs font-bold tracking-[0.24em] text-[#19e3f5] filter drop-shadow-[0_0_8px_rgba(25,227,245,0.75)] uppercase mb-0.5">
             ALTITUDE SENSOR
           </div>
@@ -120,7 +120,7 @@ export const Descent = () => {
           >
             840 M
           </b>
-        </div>
+        </div> */}
 
         {/* Story Chapter Titles (Bottom-Center) */}
         <div className="absolute left-1/2 bottom-[14vh] -translate-x-1/2 z-20 w-full px-4 text-center pointer-events-none select-none">
