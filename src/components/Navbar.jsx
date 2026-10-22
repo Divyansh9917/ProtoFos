@@ -30,7 +30,7 @@ export const Navbar = ({ onOpenTickets, onNavigate, currentPath }) => {
     { name: 'Home', target: '#hero', icon: <Home className="w-[18px] h-[18px]" /> },
     { name: 'Events', target: '#events', icon: <Calendar className="w-[18px] h-[18px]" /> },
     { name: 'Competitions', target: '#competitions', icon: <Trophy className="w-[18px] h-[18px]" /> },
-    { name: 'About', target: '/about', icon: <Info className="w-[18px] h-[18px]" /> },
+    { name: 'About', target: '#about', icon: <Info className="w-[18px] h-[18px]" /> },
     { name: 'Contact Us', target: '#footer', icon: <Phone className="w-[18px] h-[18px]" /> },
   ];
 
@@ -92,46 +92,65 @@ export const Navbar = ({ onOpenTickets, onNavigate, currentPath }) => {
     }
   ];
 
-  // IntersectionObserver to highlight active left dock tab dynamically
+  // Dynamic scroll spy to highlight active left dock tab
   useEffect(() => {
     if (currentPath === '/about' || (typeof window !== 'undefined' && window.location.pathname === '/about')) {
       setActiveSection('About');
       return;
     }
 
-    const sections = [
+    const sectionElements = [
       { id: 'hero', name: 'Home' },
       { id: 'descent', name: 'Home' },
       { id: 'events', name: 'Events' },
       { id: 'competitions', name: 'Competitions' },
+      { id: 'about', name: 'About' },
       { id: 'footer', name: 'Contact Us' },
     ];
 
-    const observers = [];
-    sections.forEach(({ id, name }) => {
-      const el = document.getElementById(id);
-      if (el) {
-        const obs = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setActiveSection(name);
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + window.innerHeight * 0.35;
+          const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+
+          if (isAtBottom) {
+            setActiveSection('Contact Us');
+            ticking = false;
+            return;
+          }
+
+          for (let i = sectionElements.length - 1; i >= 0; i--) {
+            const { id, name } = sectionElements[i];
+            const el = document.getElementById(id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              const top = rect.top + window.scrollY;
+              if (scrollPosition >= top) {
+                setActiveSection(name);
+                break;
+              }
             }
-          },
-          { threshold: 0.25 }
-        );
-        obs.observe(el);
-        observers.push(obs);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      observers.forEach((obs) => obs.disconnect());
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [currentPath]);
 
   const handleClick = (e, target) => {
     e.preventDefault();
-    if (target === '/about') {
+    if (target === '/about' || target === '#about') {
       setActiveSection('About');
     }
     if (onNavigate) {

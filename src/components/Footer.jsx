@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowUp, Instagram, Linkedin, Github, MessageSquare, Terminal } from 'lucide-react';
+import React from 'react';
+import { ArrowUp, Instagram, Linkedin, Github } from 'lucide-react';
 
 export const Footer = () => {
-  const [latency, setLatency] = useState(12);
-
-  // Live latency change every 2-3s between 9-24ms
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLatency(Math.floor(Math.random() * (24 - 9 + 1)) + 9);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
 
   const scrollToTop = () => {
     if (window.lenis && typeof window.lenis.scrollTo === 'function') {
@@ -180,224 +171,185 @@ export const Footer = () => {
       </div>
 
       {/* =====================================================================
-          MAIN CONTAINER: RESPONSIVE (<900px columns stack, brand upar, links 2-col)
+          MAIN UNIFIED FOOTER CONTAINER
           ===================================================================== */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-10 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12 sm:pb-16 relative z-10">
+        <div
+          className="relative w-full bg-[#060c18]/85 backdrop-blur-md border border-[#19e3f5]/25 hover:border-[#19e3f5]/45 transition-colors duration-300 shadow-[0_12px_45px_rgba(0,0,0,0.7)] p-6 sm:p-8 lg:p-10 overflow-hidden"
+          style={{
+            clipPath:
+              'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))',
+          }}
+        >
+          {/* Ambient top cyber hairline glow */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#19e3f5]/40 to-transparent pointer-events-none" />
 
-        {/* Main Grid: below 900px stacks cleanly */}
-        <div className="flex flex-col min-[900px]:grid min-[900px]:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 mb-10">
+          {/* Cyber Corner Brackets */}
+          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#19e3f5]/60 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#19e3f5]/60 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#19e3f5]/60 pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#19e3f5]/60 pointer-events-none" />
 
-          {/* =================================================================
-              3 & 4 & 5. BRAND BLOCK (col-span-5)
-              ================================================================= */}
-          <div className="w-full min-[900px]:col-span-5 relative overflow-hidden bg-[#070d18]/60 border border-[#19e3f5]/25 p-6 sm:p-7 backdrop-blur-sm flex flex-col justify-between">
-            {/* Peeche bahut bada ghost outline text "PROTOFOS" (1px stroke, opacity .06), aadha neeche se cut */}
-            <div
-              aria-hidden="true"
-              className="absolute -bottom-7 -left-3 text-[85px] sm:text-[115px] font-cyberpunk font-black italic tracking-tighter select-none pointer-events-none leading-none z-0"
-              style={{
-                WebkitTextStroke: '1px #19e3f5',
-                color: 'transparent',
-                opacity: 0.06,
-              }}
-            >
-              PROTOFOS
-            </div>
-
-            <div className="space-y-4 relative z-10">
-              {/* Logo + Title */}
-              <div className="flex items-center gap-3.5">
-                <div
-                  className="p-1.5 bg-[#04070b] border border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.35)] flex-shrink-0"
-                  style={{
-                    clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)',
-                  }}
-                >
-                  <img
-                    src="/protofos-logo.png"
-                    alt="Protofos Official Logo"
-                    className="h-9 w-auto object-contain drop-shadow-[0_0_8px_rgba(246,232,30,0.7)]"
-                  />
-                </div>
-                <div>
-                  <h3 className="footer-glitch-title inline-block cursor-pointer font-cyberpunk font-bold italic text-2xl sm:text-3xl text-white tracking-widest leading-none">
-                    PROTOFOS <span className="text-[#f6e81e] drop-shadow-[0_0_12px_rgba(246,232,30,0.6)]">2026</span>
-                  </h3>
-                  <span className="block font-spacemono text-[10px] sm:text-[11px] text-[#19e3f5] tracking-[0.2em] uppercase mt-1">
-                    IIIT BHAGALPUR TECHNICAL BOARD
-                  </span>
-                </div>
-              </div>
-
-              {/* Tagline "IDEAS TODAY // A BRIGHTER TOMORROW" in yellow */}
-              <div className="pt-1">
-                <p className="font-cyberpunk font-bold text-xs sm:text-sm tracking-wider text-[#f6e81e] uppercase flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e]" />
-                  IDEAS TODAY // A BRIGHTER TOMORROW
-                </p>
-              </div>
-
-              {/* Paragraph #aab4c0, line-height 1.7 */}
-              <p className="text-[#aab4c0] text-xs sm:text-[13.5px] leading-[1.7]">
-                The premier annual technical fest pushing boundaries in robotics, algorithmic engineering,
-                cybersecurity, and space avionics. Built by student innovators to illuminate the future.
-              </p>
-            </div>
-
-            {/* 5. Status Strip in Clip-Corner HUD Box */}
-            <div className="mt-6 pt-3 relative z-10">
+          {/* ===================================================================
+              TOP SECTION: 3 COLUMNS (Branding, Directory, Transmissions)
+              =================================================================== */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10">
+            {/* Column 1: ProtoFos Branding (5 cols on lg) */}
+            <div className="md:col-span-12 lg:col-span-5 relative overflow-hidden flex flex-col justify-between">
+              {/* Oversized background watermark */}
               <div
-                className="px-3.5 py-2 bg-[#04070b]/90 border border-[#19e3f5]/35 flex flex-wrap items-center gap-2 text-[10px] font-spacemono text-[#8793a2]"
+                aria-hidden="true"
+                className="absolute -bottom-8 -left-3 text-[80px] sm:text-[105px] font-cyberpunk font-black italic tracking-tighter select-none pointer-events-none leading-none z-0"
                 style={{
-                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+                  WebkitTextStroke: '1px #19e3f5',
+                  color: 'transparent',
+                  opacity: 0.05,
                 }}
               >
-                <div className="flex items-center gap-1.5 text-[#19e3f5] font-bold">
-                  {/* Cyan blinking dot */}
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#19e3f5] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#19e3f5]" />
-                  </span>
-                  <span>GRID: ONLINE</span>
-                </div>
-                <span className="text-[#19e3f5]">•</span>
-                <span className="text-slate-200">
-                  LATENCY: <span className="text-[#f6e81e] font-bold">{latency}ms</span>
-                </span>
-                <span className="text-[#19e3f5]">•</span>
-                <span className="text-[#19e3f5]">CIPHER: 256-BIT</span>
-                <span className="text-[#8793a2]">// NIGHT CITY</span>
-              </div>
-            </div>
-          </div>
-
-          {/* =================================================================
-              6 & 7. RIGHT COLUMNS: 01 // DIRECTORY & 02 // TRANSMISSIONS (col-span-7)
-              ================================================================= */}
-          <div className="w-full min-[900px]:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-
-            {/* COLUMN 01 // DIRECTORY */}
-            <div className="bg-[#070d18]/60 border border-[#18222e] p-6 backdrop-blur-sm flex flex-col justify-between">
-              <div>
-                {/* Heading with square marker */}
-                <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-[#18222e] mb-4">
-                  <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
-                  <span className="font-bold">01 // DIRECTORY</span>
-                </div>
-
-                {/* Links: Space Mono uppercase, hover yellow, left slide-in "▸" arrow 150ms */}
-                <ul className="space-y-2">
-                  {directoryLinks.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className={`group flex items-center py-1 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 ${item.active ? 'text-[#f6e81e]' : 'text-[#8793a2] hover:text-[#f6e81e]'
-                          }`}
-                      >
-                        {/* Slide-in arrow: cyan to yellow on hover, 150ms */}
-                        <span
-                          className={`inline-block mr-2 text-xs transition-all duration-150 transform ${item.active
-                              ? 'text-[#f6e81e] translate-x-0 opacity-100'
-                              : 'text-[#19e3f5] group-hover:text-[#f6e81e] -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
-                            }`}
-                        >
-                          ▸
-                        </span>
-                        <span>{item.name}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                PROTOFOS
               </div>
 
-              <div className="mt-6 pt-3 border-t border-[#18222e] flex items-center justify-between text-[9px] font-spacemono text-[#8793a2]">
-                <span>INDEX // ACTIVE</span>
-                <span className="text-[#19e3f5]">SEC_ID: 0x26</span>
+              <div className="relative z-10 space-y-4">
+                {/* Logo + Heading */}
+                <div className="flex items-center gap-3.5">
+                  <div
+                    className="p-1.5 bg-[#04070b] border border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.35)] flex-shrink-0"
+                    style={{
+                      clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)',
+                    }}
+                  >
+                    <img
+                      src="/protofos-logo.png"
+                      alt="Protofos Official Logo"
+                      className="h-9 w-auto object-contain drop-shadow-[0_0_8px_rgba(246,232,30,0.7)]"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="footer-glitch-title inline-block cursor-pointer font-cyberpunk font-bold italic text-2xl sm:text-3xl text-white tracking-widest leading-none">
+                      PROTOFOS <span className="text-[#f6e81e] drop-shadow-[0_0_12px_rgba(246,232,30,0.6)]">2026</span>
+                    </h3>
+                    <span className="block font-spacemono text-[10px] sm:text-[11px] text-[#19e3f5] tracking-[0.2em] uppercase mt-1">
+                      IIIT BHAGALPUR TECHNICAL BOARD
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* COLUMN 02 // TRANSMISSIONS & RETURN TO SKYLINE */}
-            <div className="bg-[#070d18]/60 border border-[#18222e] p-6 backdrop-blur-sm flex flex-col justify-between">
-              <div>
-                {/* Heading with square marker */}
-                <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-[#18222e] mb-4">
-                  <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
-                  <span className="font-bold">02 // TRANSMISSIONS</span>
-                </div>
+            {/* Column 2: Directory (4 cols on lg, 6 cols on md) */}
+            <div className="md:col-span-6 lg:col-span-4 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 lg:pl-10">
+              {/* Heading with square marker */}
+              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-white/10 mb-4">
+                <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
+                <span className="font-bold">DIRECTORY</span>
+              </div>
 
-                {/* Socials: Lucide icons, 36px clip-corner buttons, hover glow */}
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  {socialLinks.map((s) => (
+              {/* Links: Space Mono uppercase, hover yellow, left slide-in "▸" arrow 150ms */}
+              <ul className="space-y-2">
+                {directoryLinks.map((item) => (
+                  <li key={item.name}>
                     <a
-                      key={s.name}
-                      href={s.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={s.name}
-                      className="w-9 h-9 bg-[#04070b] border border-[#19e3f5]/30 hover:border-[#f6e81e] text-[#19e3f5] hover:text-[#f6e81e] flex items-center justify-center transition-all duration-200 hover:shadow-[0_0_15px_rgba(246,232,30,0.5)] group"
-                      style={{
-                        clipPath: 'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
-                      }}
+                      href={item.href}
+                      className={`group flex items-center py-0.5 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 ${
+                        item.active ? 'text-[#f6e81e]' : 'text-[#8793a2] hover:text-[#f6e81e]'
+                      }`}
                     >
-                      <span className="transition-transform duration-150 group-hover:scale-110">
-                        {s.icon}
+                      {/* Slide-in arrow: cyan to yellow on hover, 150ms */}
+                      <span
+                        className={`inline-block mr-2 text-xs transition-all duration-150 transform ${
+                          item.active
+                            ? 'text-[#f6e81e] translate-x-0 opacity-100'
+                            : 'text-[#19e3f5] group-hover:text-[#f6e81e] -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
+                        }`}
+                      >
+                        ▸
                       </span>
+                      <span>{item.name}</span>
                     </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* 7. RETURN TO SKYLINE Button */}
-              <div>
-                <button
-                  type="button"
-                  onClick={scrollToTop}
-                  className="w-full py-3 px-4 bg-transparent hover:bg-[#f6e81e] text-[#f6e81e] hover:text-[#04070b] border-2 border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.25)] hover:shadow-[0_0_24px_rgba(246,232,30,0.8)] transition-all duration-200 flex items-center justify-center gap-2 text-xs font-cyberpunk font-bold italic uppercase tracking-widest cursor-pointer group/btn"
-                  style={{
-                    clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))',
-                  }}
-                >
-                  <ArrowUp className="w-3.5 h-3.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                  <span>RETURN TO SKYLINE</span>
-                </button>
-              </div>
+                  </li>
+                ))}
+              </ul>
             </div>
 
+            {/* Column 3: Transmissions (3 cols on lg, 6 cols on md) */}
+            <div className="md:col-span-6 lg:col-span-3 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 lg:pl-10">
+              {/* Heading with square marker */}
+              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-white/10 mb-4">
+                <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
+                <span className="font-bold">TRANSMISSIONS</span>
+              </div>
+
+              {/* Socials: Lucide icons, 36px clip-corner buttons, hover glow */}
+              <div className="flex flex-wrap items-center gap-3">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.name}
+                    className="w-9 h-9 bg-[#04070b]/90 border border-[#19e3f5]/30 hover:border-[#f6e81e] text-[#19e3f5] hover:text-[#f6e81e] flex items-center justify-center transition-all duration-200 hover:shadow-[0_0_15px_rgba(246,232,30,0.5)] group"
+                    style={{
+                      clipPath:
+                        'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
+                    }}
+                  >
+                    <span className="transition-transform duration-150 group-hover:scale-110">
+                      {s.icon}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
+          {/* ===================================================================
+              RETURN TO SKYLINE BUTTON: Centered at bottom of content
+              =================================================================== */}
+          <div className="mt-10 sm:mt-12 mb-8 sm:mb-10 flex justify-center">
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="py-3 px-6 sm:px-8 bg-[#04070b]/90 hover:bg-[#f6e81e] text-[#f6e81e] hover:text-[#04070b] border-2 border-[#f6e81e] shadow-[0_0_14px_rgba(246,232,30,0.25)] hover:shadow-[0_0_28px_rgba(246,232,30,0.85)] transition-all duration-300 flex items-center justify-center gap-2.5 text-xs sm:text-sm font-cyberpunk font-bold italic uppercase tracking-widest cursor-pointer group/btn"
+              style={{
+                clipPath:
+                  'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))',
+              }}
+            >
+              <ArrowUp className="w-4 h-4 group-hover/btn:-translate-y-1 transition-transform duration-200" />
+              <span>RETURN TO SKYLINE</span>
+            </button>
+          </div>
+
+          {/* ===================================================================
+              BOTTOM SECTION: Subtle Divider + Copyright & Legal Info
+              =================================================================== */}
+          <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] sm:text-[11px] font-spacemono text-[#8793a2]">
+            {/* Left: Copyright */}
+            <div className="flex items-center gap-2 text-center md:text-left">
+              <span className="text-[#19e3f5] font-bold">[</span>
+              <span>&copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR.</span>
+              <span className="text-[#19e3f5] font-bold">]</span>
+            </div>
+
+            {/* Right: Legal links */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+              <span className="text-[#19e3f5] font-bold">[</span>
+              <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
+                PRIVACY POLICY
+              </a>
+              <span className="text-[#19e3f5]">•</span>
+              <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
+                TERMS OF SERVICE
+              </a>
+              <span className="text-[#19e3f5]">•</span>
+              <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
+                CODE OF CONDUCT
+              </a>
+              <span className="text-[#19e3f5] font-bold">]</span>
+            </div>
+          </div>
         </div>
-
-        {/* =====================================================================
-            8. BOTTOM BAR: COPYRIGHT + LEGAL LINKS + CORNER BRACKETS
-            ===================================================================== */}
-        <div className="pt-6 border-t border-[#18222e] flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] font-spacemono text-[#8793a2]">
-
-          {/* Left bracket & copyright */}
-          <div className="flex items-center gap-2 text-center md:text-left">
-            <span className="text-[#19e3f5] font-bold">[</span>
-            <span>&copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR.</span>
-            <span className="text-[#19e3f5] font-bold">]</span>
-          </div>
-
-          {/* Legal links with cyan bullet separators & yellow hover */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            <span className="text-[#19e3f5] font-bold">[</span>
-            <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
-              PRIVACY POLICY
-            </a>
-            <span className="text-[#19e3f5]">•</span>
-            <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
-              TERMS OF SERVICE
-            </a>
-            <span className="text-[#19e3f5]">•</span>
-            <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
-              CODE OF CONDUCT
-            </a>
-            <span className="text-[#19e3f5] font-bold">]</span>
-          </div>
-
-        </div>
-
       </div>
     </footer>
   );

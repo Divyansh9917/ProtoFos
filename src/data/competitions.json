@@ -19,7 +19,8 @@
       "name": "Markets"
     }
   ],
-  "competitions": [
+  
+ "competitions": [
     {
       "order": 1,
       "slug": "synapse-arena",
@@ -37,16 +38,26 @@
       "bannerImage": "banners/synapse-arena.webp",
       "date": "2026-10-31/2026-11-01",
       "venue": "IIIT Bhagalpur",
-      "teamSize": null,
-      "prizePool": null,
-      "deadline": null,
-      "format": null,
-      "rounds": null,
-      "eligibility": null,
-      "about": null,
-      "rules": [],
-      "timeline": [],
-      "registerUrl": null,
+      "teamSize": "2 - 4 Members",
+      "prizePool": "₹19,000",
+      "deadline": "26 Oct 2026, 06:32 PM IST",
+      "format": "Offline",
+      "rounds": "1",
+      "eligibility": "All",
+      "about": "An AI/ML racing challenge in which teams train and optimize a Reinforcement Learning agent to navigate a custom racing environment, then compete against other teams in 1v1 races. Points are awarded based on race outcomes and performance.",
+      "rules": [
+        "Teams train their own Reinforcement Learning agent for the custom racing environment.",
+        "AI agents compete in 1v1 races.",
+        "Points are awarded based on race outcomes and performance; the team with the highest cumulative points wins."
+      ],
+      "timeline": [
+        {
+          "phase": "REGISTRATION DEADLINE",
+          "date": "26 OCT 2026, 06:32 PM IST",
+          "desc": "Registration closes"
+        }
+      ],
+      "registerUrl": "https://unstop.com/competitions/synapse-arena-where-ai-meets-adrenaline-indian-institute-of-information-technology-iiit-bhagalpur-1771525",
       "rulebookUrl": null
     },
     {
@@ -66,16 +77,31 @@
       "bannerImage": "banners/syntax-sprint.webp",
       "date": "2026-10-31/2026-11-01",
       "venue": "IIIT Bhagalpur",
-      "teamSize": null,
-      "prizePool": null,
-      "deadline": null,
-      "format": null,
-      "rounds": null,
-      "eligibility": null,
-      "about": null,
-      "rules": [],
-      "timeline": [],
-      "registerUrl": null,
+      "teamSize": "Individual",
+      "prizePool": "₹15,000+",
+      "deadline": "26 Oct 2026, 06:33 PM IST",
+      "format": "Offline",
+      "rounds": "Offline contest + knockout matches",
+      "eligibility": "All",
+      "about": "A competitive programming contest organized by PYC Club under the Technical Board of IIIT Bhagalpur. Participants test their algorithmic thinking, problem-solving abilities, and coding efficiency in a coding contest on Codeforces. There is no preliminary online round or shortlisting process.",
+      "rules": [
+        "Participation is individual.",
+        "Participants register directly for the offline contest at IIIT Bhagalpur.",
+        "The top four performers compete in knockout matches to determine the final rankings."
+      ],
+      "timeline": [
+        {
+          "phase": "REGISTRATION DEADLINE",
+          "date": "26 OCT 2026, 06:33 PM IST",
+          "desc": "Registration closes"
+        },
+        {
+          "phase": "OFFLINE ROUND",
+          "date": "31 OCT–01 NOV 2026",
+          "desc": "Offline coding contest and knockout matches"
+        }
+      ],
+      "registerUrl": "https://unstop.com/hackathons/syntax-sprint-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1771598",
       "rulebookUrl": null
     },
     {
@@ -96,15 +122,21 @@
       "date": "2026-10-31/2026-11-01",
       "venue": "IIIT Bhagalpur",
       "teamSize": null,
-      "prizePool": null,
-      "deadline": null,
-      "format": null,
+      "prizePool": "₹6,000",
+      "deadline": "26 Oct 2026",
+      "format": "Offline",
       "rounds": null,
       "eligibility": null,
-      "about": null,
+      "about": "Bull Run is a trading competition where participants test their market awareness, decision-making, and ability to make strategic trading choices. The goal is to trade smart, manage risk, and aim for the strongest performance.",
       "rules": [],
-      "timeline": [],
-      "registerUrl": null,
+      "timeline": [
+        {
+          "phase": "REGISTRATION DEADLINE",
+          "date": "26 OCT 2026",
+          "desc": "Registration closes"
+        }
+      ],
+      "registerUrl": "https://unstop.com/competitions/bull-run-trade-smart-win-big-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1771547",
       "rulebookUrl": null
     },
     {
@@ -126,14 +158,20 @@
       "venue": "IIIT Bhagalpur",
       "teamSize": null,
       "prizePool": null,
-      "deadline": null,
-      "format": null,
+      "deadline": "26 Oct 2026",
+      "format": "Offline",
       "rounds": null,
       "eligibility": null,
-      "about": null,
+      "about": "A drone competition at ProtoFos 2026 where participants bring their flying skills and technical knowledge to the arena. The event focuses on piloting, control, and handling a drone in a competitive setting.",
       "rules": [],
-      "timeline": [],
-      "registerUrl": null,
+      "timeline": [
+        {
+          "phase": "REGISTRATION DEADLINE",
+          "date": "26 OCT 2026",
+          "desc": "Registration closes"
+        }
+      ],
+      "registerUrl": "https://unstop.com/competitions/aerorush-drone-competition-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1771593",
       "rulebookUrl": null
     },
     {
@@ -153,22 +191,41 @@
       "bannerImage": "banners/bot-battleground.webp",
       "date": "2026-10-31/2026-11-01",
       "venue": "IIIT Bhagalpur",
-      "teamSize": null,
-      "prizePool": null,
-      "deadline": null,
-      "format": null,
-      "rounds": null,
-      "eligibility": null,
-      "about": null,
-      "rules": [],
-      "timeline": [],
-      "registerUrl": null,
+      "teamSize": "3 - 5 Members",
+      "prizePool": "₹20,000",
+      "deadline": "26 Oct 2026, 06:33 PM IST",
+      "format": "Offline",
+      "rounds": "3 (Robo Race, Robo Soccer, Tug of War)",
+      "eligibility": "All",
+      "about": "A multi-round robotics competition at ProtoFos 2026 where teams design and control a robot across Robo Race, Robo Soccer, and Tug of War. The event tests maneuverability, speed, control, strength, traction, and engineering skill.",
+      "rules": [
+        "Teams must have 3–5 members and use one robot across all three rounds.",
+        "Maximum robot dimensions: 500 × 200 × 150 mm (L × W × H).",
+        "Maximum robot weight: 5 kg, including batteries and attachments.",
+        "The onboard electrical supply must not exceed 12V.",
+        "Wireless control is mandatory; mechanical engines are prohibited.",
+        "Only minor modifications for Robo Soccer attachments or mechanisms are permitted before the final round.",
+        "Participants register directly for the offline competition; there is no preliminary online round or shortlisting process."
+      ],
+      "timeline": [
+        {
+          "phase": "REGISTRATION DEADLINE",
+          "date": "26 OCT 2026, 06:33 PM IST",
+          "desc": "Registration closes"
+        },
+        {
+          "phase": "OFFLINE COMPETITION",
+          "date": "31 OCT–01 NOV 2026",
+          "desc": "Robo Race, Robo Soccer and Tug of War"
+        }
+      ],
+      "registerUrl": "https://unstop.com/competitions/bot-battleground-build-battle-dominate-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1771571",
       "rulebookUrl": null
     },
     {
       "order": 6,
       "slug": "securathon",
-      "name": "Securathon 2026",
+      "name": "Securathon",
       "formerName": null,
       "category": "Software & AI",
       "categorySlug": "software-ai",
@@ -182,16 +239,32 @@
       "bannerImage": "banners/securathon.webp",
       "date": "2026-10-31/2026-11-01",
       "venue": "IIIT Bhagalpur",
-      "teamSize": null,
-      "prizePool": null,
-      "deadline": null,
-      "format": null,
-      "rounds": null,
-      "eligibility": null,
-      "about": null,
-      "rules": [],
-      "timeline": [],
-      "registerUrl": null,
+      "teamSize": "2 - 4 Members",
+      "prizePool": "₹22,000",
+      "deadline": "30 Oct 2026, 11:10 PM IST",
+      "format": "Offline",
+      "rounds": "24-hour hackathon (with 2–4 hours buffer if required)",
+      "eligibility": "All",
+      "about": "A cybersecurity hackathon conducted by DevC and Hackelite. Participants identify and solve real-world cybersecurity problems by designing and implementing practical software solutions. Teams are encouraged to use suitable cryptographic algorithms and follow OWASP Top 10 security practices, with an emphasis on security by design.",
+      "rules": [
+        "Build a practical software solution addressing a real-world cybersecurity problem.",
+        "Use appropriate cryptographic algorithms where relevant.",
+        "Follow OWASP Top 10 security practices.",
+        "Projects are evaluated on cryptographic use, security implementation, OWASP Top 10 compliance, technical implementation and design, real-world relevance, and overall quality."
+      ],
+      "timeline": [
+        {
+          "phase": "REGISTRATION DEADLINE",
+          "date": "30 OCT 2026, 11:10 PM IST",
+          "desc": "Registration closes"
+        },
+        {
+          "phase": "OFFLINE HACKATHON",
+          "date": "31 OCT–01 NOV 2026",
+          "desc": "24-hour hackathon; 2–4 hours of buffer time may be used if required"
+        }
+      ],
+      "registerUrl": "https://unstop.com/hackathons/securathon-cybersecurity-hackathon-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1771528",
       "rulebookUrl": null
     },
     {
@@ -217,9 +290,18 @@
       "teamSize": "3-5",
       "prizePool": "₹18,000",
       "prizeDetails": [
-        { "position": "1st", "prize": "₹8,000" },
-        { "position": "2nd", "prize": "₹6,000" },
-        { "position": "3rd", "prize": "₹4,000" }
+        {
+          "position": "1st",
+          "prize": "₹8,000"
+        },
+        {
+          "position": "2nd",
+          "prize": "₹6,000"
+        },
+        {
+          "position": "3rd",
+          "prize": "₹4,000"
+        }
       ],
       "fee": "Event pass ₹99 (Robo Relay only) or All-Events pass ₹249; food and accommodation not included. Registration via Unstop + payment form (links TBA, keep the register button as a placeholder link).",
       "deadline": "[ TBA ]",
@@ -242,18 +324,38 @@
         "The top 3 teams play knockout matches to decide the final rankings."
       ],
       "timeline": [
-        { "phase": "REGISTRATION", "date": "[ TBA ]", "desc": "Registration via Unstop" },
-        { "phase": "TECH CHECK", "date": "[ TBA ]", "desc": "Robot technical and safety check" },
-        { "phase": "TIMED RUN", "date": "31 OCT 2026", "desc": "Timed run (LFR + Maze)" },
-        { "phase": "KNOCKOUT", "date": "01 NOV 2026", "desc": "Top 3 teams knockout rounds" },
-        { "phase": "RESULTS", "date": "01 NOV 2026", "desc": "Final results and awards ceremony" }
+        {
+          "phase": "REGISTRATION",
+          "date": "[ TBA ]",
+          "desc": "Registration via Unstop"
+        },
+        {
+          "phase": "TECH CHECK",
+          "date": "[ TBA ]",
+          "desc": "Robot technical and safety check"
+        },
+        {
+          "phase": "TIMED RUN",
+          "date": "31 OCT 2026",
+          "desc": "Timed run (LFR + Maze)"
+        },
+        {
+          "phase": "KNOCKOUT",
+          "date": "01 NOV 2026",
+          "desc": "Top 3 teams knockout rounds"
+        },
+        {
+          "phase": "RESULTS",
+          "date": "01 NOV 2026",
+          "desc": "Final results and awards ceremony"
+        }
       ],
       "contact": {
         "name": "Student Coordinators",
         "role": "REC Coordination Desk",
         "details": "[ TBA ]"
       },
-      "registerUrl": null,
+      "registerUrl": "https://unstop.com/competitions/robo-relay-2d-and-3d-maze-solver-bot-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1771584",
       "rulebookUrl": null
     },
     {
@@ -280,7 +382,10 @@
       "teamSize": "2-4 (subject to approval)",
       "prizePool": "₹11,000",
       "prizeDetails": [
-        { "position": "Split per position", "prize": "[ TBA ]" }
+        {
+          "position": "Split per position",
+          "prize": "[ TBA ]"
+        }
       ],
       "fee": "[ TBA ]",
       "deadline": "[ TBA ]",
@@ -294,28 +399,66 @@
         "Every pitch must cover: problem statement; proposed solution; target users and market; innovation and differentiation; business model; feasibility; scalability; implementation roadmap."
       ],
       "judgingCriteria": [
-        { "criterion": "Innovation and originality", "weight": "20%" },
-        { "criterion": "Problem relevance", "weight": "15%" },
-        { "criterion": "Feasibility", "weight": "15%" },
-        { "criterion": "Business potential", "weight": "15%" },
-        { "criterion": "Presentation and clarity", "weight": "15%" },
-        { "criterion": "Scalability", "weight": "10%" },
-        { "criterion": "Impact", "weight": "10%" }
+        {
+          "criterion": "Innovation and originality",
+          "weight": "20%"
+        },
+        {
+          "criterion": "Problem relevance",
+          "weight": "15%"
+        },
+        {
+          "criterion": "Feasibility",
+          "weight": "15%"
+        },
+        {
+          "criterion": "Business potential",
+          "weight": "15%"
+        },
+        {
+          "criterion": "Presentation and clarity",
+          "weight": "15%"
+        },
+        {
+          "criterion": "Scalability",
+          "weight": "10%"
+        },
+        {
+          "criterion": "Impact",
+          "weight": "10%"
+        }
       ],
       "judges": "The invited guest speaker (subject to availability and consent), otherwise a panel of faculty, alumni entrepreneurs and invited professionals.",
       "timeline": [
-        { "phase": "ROUND 1", "date": "[ TBA ]", "desc": "Online idea submission" },
-        { "phase": "SHORTLIST", "date": "[ TBA ]", "desc": "Shortlist announced by E-Cell panel" },
-        { "phase": "ROUND 2", "date": "01 NOV 2026", "desc": "PPT-based live pitch & Q&A" },
-        { "phase": "RESULTS", "date": "01 NOV 2026", "desc": "Final results and felicitation" }
+        {
+          "phase": "ROUND 1",
+          "date": "[ TBA ]",
+          "desc": "Online idea submission"
+        },
+        {
+          "phase": "SHORTLIST",
+          "date": "[ TBA ]",
+          "desc": "Shortlist announced by E-Cell panel"
+        },
+        {
+          "phase": "ROUND 2",
+          "date": "01 NOV 2026",
+          "desc": "PPT-based live pitch & Q&A"
+        },
+        {
+          "phase": "RESULTS",
+          "date": "01 NOV 2026",
+          "desc": "Final results and felicitation"
+        }
       ],
       "contact": {
         "name": "Saurabh Ranjan",
         "role": "Club Secretary of E-Cell",
         "details": "[ TBA ]"
       },
-      "registerUrl": null,
+      "registerUrl": "https://unstop.com/competitions/ideastrom-protofos-indian-institute-of-information-technology-iiit-bhagalpur-1772207",
       "rulebookUrl": null
     }
   ]
+
 }

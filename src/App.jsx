@@ -6,6 +6,7 @@ import { Descent } from './components/Descent';
 import { EventsTunnel } from './components/EventsTunnel';
 import { Competitions } from './components/Competitions';
 import { Footer } from './components/Footer';
+import { AboutSection } from './components/About/AboutSection';
 import { TicketModal } from './components/TicketModal';
 
 export function App() {
@@ -91,7 +92,25 @@ export function App() {
   }, [competitionSlug, currentPath]);
 
   const handleNavigate = (targetSelector) => {
-    if (targetSelector === '/about') {
+    if (targetSelector === '/about' || targetSelector === '#about') {
+      if (currentPath === '/about' || currentPath === '/about/') {
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      const el = document.querySelector('#about');
+      if (el) {
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo('#about', { offset: -40, duration: 1.2 });
+        } else {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+      }
+
       setCompetitionSlug(null);
       setCurrentPath('/about');
       window.history.pushState(null, '', '/about');
@@ -143,7 +162,9 @@ export function App() {
           onOpenTickets={() => handleOpenTickets(null)}
           onNavigate={handleNavigate}
         />
-        <div className="about-placeholder">About Section (Content to be added later)</div>
+        <main className="flex-1 pt-24 sm:pt-28 md:pt-32">
+          <AboutSection />
+        </main>
         <Footer />
         <TicketModal
           isOpen={ticketModalOpen}
@@ -213,7 +234,12 @@ export function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* 6. Section 07: Footer */}
+      {/* 6. Section 06: About ProtoFos (#about) */}
+      <section id="about" className="relative z-20 py-20 sm:py-28 border-t border-white/5 scroll-mt-12">
+        <AboutSection />
+      </section>
+
+      {/* 7. Section 07: Footer */}
       <Footer />
 
       {/* 12. Interactive Cyber Ticket Pass Generator */}

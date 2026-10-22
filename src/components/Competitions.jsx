@@ -740,7 +740,7 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                   <a
                     href={comp.registerUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="w-full py-3.5 bg-[#f6e81e] hover:bg-[#fff23b] text-[#04070b] font-cyberpunk font-bold italic text-center tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(246,232,30,0.5)] flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>REGISTER NOW</span>
@@ -1198,13 +1198,29 @@ export const Competitions = ({ onNavigate, onOpenTickets, initialSlug = null, on
                         <ChevronRight className="w-4 h-4 text-[#19e3f5] group-hover:translate-x-1 transition-transform" />
                       </div>
 
-                      <div>
-                        <h3 className="font-cyberpunk font-bold text-lg text-white uppercase leading-tight">
-                          {comp.name}
-                        </h3>
-                        <span className="text-[10px] font-mono text-[#19e3f5] tracking-wider uppercase">
-                          EXPLORE ARENA &rarr;
-                        </span>
+                      <div className="flex items-end justify-between gap-3">
+                        <div>
+                          <h3 className="font-cyberpunk font-bold text-lg text-white uppercase leading-tight">
+                            {comp.name}
+                          </h3>
+                          <span className="text-[10px] font-mono text-[#19e3f5] tracking-wider uppercase">
+                            EXPLORE ARENA &rarr;
+                          </span>
+                        </div>
+
+                        {comp.registerUrl && (
+                          <a
+                            href={comp.registerUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 bg-[#f6e81e] hover:bg-[#fff23b] text-[#04070b] font-mono font-bold text-[10px] px-3 py-1 rounded-full tracking-wider uppercase shadow-[0_0_10px_#f6e81e] shrink-0 pointer-events-auto"
+                            title={`Register for ${comp.name} on Unstop`}
+                          >
+                            <span>REGISTER</span>
+                            <ExternalLink className="w-2.5 h-2.5 text-[#04070b]" />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1295,18 +1311,37 @@ const HexTile = ({ comp, matches, onSelect }) => {
             </span>
           </div>
 
-          {/* Center-Bottom: Name & Category Label / Hover Pill */}
-          <div className="absolute inset-x-4 bottom-10 flex flex-col items-center text-center pointer-events-none">
+          {/* Center-Bottom: Name & Category Label / Hover Register CTA */}
+          <div className="absolute inset-x-4 bottom-8 flex flex-col items-center text-center pointer-events-none">
             <h3 className="font-cyberpunk font-bold text-[17px] uppercase tracking-wider text-white leading-tight mb-1 filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
               {comp.name}
             </h3>
 
-            {/* Dynamic Label: Category in normal state -> "EXPLORE ARENA ->" Yellow Pill on hover */}
-            <div className="transition-all duration-200 mt-0.5">
+            {/* Dynamic CTA: Category in normal state -> "REGISTER NOW" Button on hover */}
+            <div className="transition-all duration-200 min-h-[28px] flex items-center justify-center">
               {isHovered && matches ? (
-                <span className="inline-block bg-[#f6e81e] text-[#04070b] font-mono font-bold text-[9px] px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_12px_#f6e81e] animate-pulse">
-                  EXPLORE ARENA &rarr;
-                </span>
+                <div className="pointer-events-auto flex items-center gap-1.5">
+                  {comp.registerUrl ? (
+                    <a
+                      href={comp.registerUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 bg-[#f6e81e] hover:bg-[#fff23b] text-[#04070b] font-mono font-bold text-[10px] px-3.5 py-1 rounded-full tracking-wider uppercase shadow-[0_0_15px_rgba(246,232,30,0.85)] transition-transform hover:scale-105 cursor-pointer"
+                      title={`Register for ${comp.name} on Unstop`}
+                    >
+                      <span>REGISTER NOW</span>
+                      <ExternalLink className="w-3 h-3 text-[#04070b]" />
+                    </a>
+                  ) : (
+                    <span
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-block bg-[#f6e81e]/80 text-[#04070b] font-mono font-bold text-[9px] px-2.5 py-0.5 rounded-full tracking-wider uppercase opacity-80 cursor-default"
+                    >
+                      COMING SOON
+                    </span>
+                  )}
+                </div>
               ) : (
                 <span className="font-mono font-bold text-[9.5px] text-[#f6e81e] tracking-widest uppercase filter drop-shadow-[0_0_6px_rgba(246,232,30,0.6)]">
                   {comp.category}
