@@ -39,7 +39,7 @@ const FACULTY_MEMBERS = [
     name: 'Dr.\u00A0Dheeraj Kumar Sinha',
     designation: 'Associate Dean, Student Welfare',
     initials: 'DS',
-    photo: null,
+    photo: '/about-section-photos/dheeraj-sinha.jpeg',
     objectPosition: 'center',
     isDesignationPending: false,
     quote:
