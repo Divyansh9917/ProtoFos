@@ -46,7 +46,7 @@ export const Footer = ({ onNavigate }) => {
     },
     {
       name: 'LINKEDIN',
-      handle: 'IIIT Bhagalpur',
+      handle: 'Technical Board IIIT Bhagalpur',
       href: 'https://in.linkedin.com/company/technical-iiitbh',
       icon: <Linkedin className="w-5 h-5 text-[#19e3f5]" />,
     },
