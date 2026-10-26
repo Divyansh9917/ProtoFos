@@ -598,41 +598,6 @@ export const AboutSection = () => {
           </div>
         </section>
 
-        {/* ====================================================================
-            E. CLOSING ELEMENT
-            ==================================================================== */}
-        <section aria-labelledby="closing-heading">
-          <div
-            className="relative p-8 sm:p-12 lg:p-14 text-center bg-[#060c18]/90 backdrop-blur-md border border-[#19e3f5]/25 overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.8)]"
-            style={{
-              clipPath:
-                'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))',
-            }}
-          >
-            {/* Ambient Line */}
-            <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#f6e81e] to-transparent opacity-60" />
-
-            {/* Small Terminal-Style Label */}
-            <div className="inline-flex items-center gap-2 font-spacemono text-[11px] sm:text-xs tracking-[0.28em] text-[#19e3f5] uppercase mb-4">
-
-            </div>
-
-            {/* Heading */}
-            <h2
-              id="closing-heading"
-              className="font-orbitron font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-wider uppercase mb-3 drop-shadow-[0_0_20px_rgba(246,232,30,0.4)]"
-            >
-              THE FUTURE IS BUILT BY US.
-            </h2>
-
-            {/* Supporting Text */}
-            <p className="font-body text-slate-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-              One community. Countless possibilities. A future waiting to be
-              built.
-            </p>
-          </div>
-        </section>
-
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { EventsTunnel } from './components/EventsTunnel';
 import { Competitions } from './components/Competitions';
 import { Footer } from './components/Footer';
 import { AboutSection } from './components/About/AboutSection';
+import { SchedulePage } from './components/Schedule/SchedulePage';
 import { TicketModal } from './components/TicketModal';
 
 export function App() {
@@ -60,9 +61,15 @@ export function App() {
     };
   }, []);
 
-  // Always scroll to top immediately and reset Lenis whenever opening or switching competition detail pages or about page
+  // Always scroll to top immediately and reset Lenis whenever opening or switching competition detail pages, about page, or schedule page
   useEffect(() => {
-    if (competitionSlug || currentPath === '/about' || currentPath === '/about/') {
+    if (
+      competitionSlug ||
+      currentPath === '/about' ||
+      currentPath === '/about/' ||
+      currentPath === '/schedule' ||
+      currentPath === '/schedule/'
+    ) {
       if (lenisRef.current) {
         lenisRef.current.scrollTo(0, { immediate: true });
       }
@@ -92,6 +99,55 @@ export function App() {
   }, [competitionSlug, currentPath]);
 
   const handleNavigate = (targetSelector) => {
+    // Dedicated /schedule page navigation
+    if (targetSelector === '/schedule') {
+      if (currentPath === '/schedule' || currentPath === '/schedule/') {
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
+        return;
+      }
+      setCompetitionSlug(null);
+      setCurrentPath('/schedule');
+      window.history.pushState(null, '', '/schedule');
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    // Main page Schedule section smooth scroll (#schedule)
+    if (targetSelector === '#schedule') {
+      if (currentPath === '/') {
+        const el = document.querySelector('#schedule');
+        if (el) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo('#schedule', { offset: -30, duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+        return;
+      }
+
+      setCurrentPath('/');
+      setCompetitionSlug(null);
+      window.history.pushState(null, '', '/');
+      setTimeout(() => {
+        const el = document.querySelector('#schedule');
+        if (el) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo('#schedule', { offset: -30, duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 60);
+      return;
+    }
+
     if (targetSelector === '/about' || targetSelector === '#about') {
       if (currentPath === '/about' || currentPath === '/about/') {
         if (lenisRef.current) {
@@ -102,7 +158,7 @@ export function App() {
       }
 
       const el = document.querySelector('#about');
-      if (el) {
+      if (el && currentPath === '/') {
         if (lenisRef.current) {
           lenisRef.current.scrollTo('#about', { offset: -40, duration: 1.2 });
         } else {
@@ -121,7 +177,13 @@ export function App() {
       return;
     }
 
-    if (currentPath === '/about' || currentPath === '/about/' || competitionSlug) {
+    if (
+      currentPath === '/about' ||
+      currentPath === '/about/' ||
+      currentPath === '/schedule' ||
+      currentPath === '/schedule/' ||
+      competitionSlug
+    ) {
       setCurrentPath('/');
       setCompetitionSlug(null);
       window.history.pushState(null, '', '/');
@@ -153,6 +215,28 @@ export function App() {
     setTicketModalOpen(true);
   };
 
+  // If viewing the Schedule page (/schedule)
+  if (currentPath === '/schedule' || currentPath === '/schedule/') {
+    return (
+      <div className="relative min-h-screen bg-[#04070b] text-slate-100 selection:bg-[#19e3f5] selection:text-black flex flex-col justify-between">
+        <Navbar
+          currentPath={currentPath}
+          onOpenTickets={() => handleOpenTickets(null)}
+          onNavigate={handleNavigate}
+        />
+        <main className="flex-1 pt-24 sm:pt-28 md:pt-32">
+          <SchedulePage onNavigate={handleNavigate} />
+        </main>
+        <Footer onNavigate={handleNavigate} />
+        <TicketModal
+          isOpen={ticketModalOpen}
+          onClose={() => setTicketModalOpen(false)}
+          preselectedEvent={preselectedEvent}
+        />
+      </div>
+    );
+  }
+
   // If viewing the About page (/about)
   if (currentPath === '/about' || currentPath === '/about/') {
     return (
@@ -165,7 +249,7 @@ export function App() {
         <main className="flex-1 pt-24 sm:pt-28 md:pt-32">
           <AboutSection />
         </main>
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
         <TicketModal
           isOpen={ticketModalOpen}
           onClose={() => setTicketModalOpen(false)}
@@ -190,7 +274,7 @@ export function App() {
           onOpenTickets={handleOpenTickets}
           onNavigate={handleNavigate}
         />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
         <TicketModal
           isOpen={ticketModalOpen}
           onClose={() => setTicketModalOpen(false)}
@@ -234,13 +318,18 @@ export function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* 6. Section 06: About ProtoFos (#about) */}
+      {/* 6. Section C: Event Schedule (#schedule) */}
+      <section id="schedule" className="relative z-20 py-16 sm:py-24 border-t border-white/5 scroll-mt-16">
+        <SchedulePage onNavigate={handleNavigate} isSection={true} />
+      </section>
+
+      {/* 7. Section 06: About ProtoFos (#about) */}
       <section id="about" className="relative z-20 py-20 sm:py-28 border-t border-white/5 scroll-mt-12">
         <AboutSection />
       </section>
 
-      {/* 7. Section 07: Footer */}
-      <Footer />
+      {/* 8. Section 07: Footer */}
+      <Footer onNavigate={handleNavigate} />
 
       {/* 12. Interactive Cyber Ticket Pass Generator */}
       <TicketModal

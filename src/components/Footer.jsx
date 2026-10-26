@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowUp, Instagram, Linkedin, Github } from 'lucide-react';
+import { ArrowUp, Instagram, Linkedin, Phone, ExternalLink } from 'lucide-react';
 
-export const Footer = () => {
+export const Footer = ({ onNavigate }) => {
 
   const scrollToTop = () => {
     if (window.lenis && typeof window.lenis.scrollTo === 'function') {
@@ -11,40 +11,63 @@ export const Footer = () => {
     }
   };
 
+  const isScheduleActive = typeof window !== 'undefined' && window.location.pathname.startsWith('/schedule');
+  const isAboutActive = typeof window !== 'undefined' && window.location.pathname.startsWith('/about');
+
   const directoryLinks = [
-    { name: 'HOME', href: '#hero', active: true },
-    { name: 'DESCENT', href: '#descent', active: false },
+    { name: 'HOME', href: '#hero', active: !isScheduleActive && !isAboutActive },
     { name: 'EVENTS', href: '#events', active: false },
     { name: 'COMPETITIONS', href: '#competitions', active: false },
-    { name: 'SCHEDULE', href: '#schedule', active: false },
+    { name: 'SCHEDULE', href: '#schedule', active: isScheduleActive },
+    { name: 'ABOUT', href: '/about', active: isAboutActive },
+  ];
+
+  const contactPersons = [
+    {
+      name: 'Saurabh Ranjan',
+      phone: '+91 80836 74302',
+      tel: '+918083674302',
+      role: 'Student Coordinator',
+    },
+    {
+      name: 'Yash Wardhan Rai',
+      phone: '+91 93104 79073',
+      tel: '+919310479073',
+      role: 'Student Coordinator',
+    },
   ];
 
   const socialLinks = [
     {
-      name: 'Instagram',
-      href: 'https://instagram.com',
-      icon: <Instagram className="w-4 h-4" />,
+      name: 'INSTAGRAM',
+      handle: '@protofos.iiit',
+      href: 'https://www.instagram.com/protofos.iiit/',
+      icon: <Instagram className="w-5 h-5 text-[#19e3f5]" />,
     },
     {
-      name: 'LinkedIn',
-      href: 'https://linkedin.com',
-      icon: <Linkedin className="w-4 h-4" />,
-    },
-    {
-      name: 'GitHub',
-      href: 'https://github.com',
-      icon: <Github className="w-4 h-4" />,
-    },
-    {
-      name: 'Discord',
-      href: 'https://discord.com',
-      icon: (
-        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-        </svg>
-      ),
+      name: 'LINKEDIN',
+      handle: 'IIIT Bhagalpur',
+      href: 'https://in.linkedin.com/company/technical-iiitbh',
+      icon: <Linkedin className="w-5 h-5 text-[#19e3f5]" />,
     },
   ];
+
+  const handleLinkClick = (e, href) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(href);
+    } else {
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (href.startsWith('/')) {
+        e.preventDefault();
+        window.history.pushState(null, '', href);
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      }
+    }
+  };
 
   return (
     <footer
@@ -52,19 +75,14 @@ export const Footer = () => {
       className="relative w-full bg-[#04070b] text-slate-300 overflow-hidden select-none"
       aria-label="Protofos Central System Terminal"
     >
-      {/* =====================================================================
-          1. TOP EDGE: 2PX NEON LINE (CYAN -> YELLOW -> MAGENTA) + SCANNING GLITCH
-          ===================================================================== */}
       {/* Soft gradient fade from previous section to avoid hard cut */}
       <div className="absolute inset-x-0 -top-20 h-20 bg-gradient-to-b from-transparent to-[#04070b] pointer-events-none z-20" />
 
-
       {/* =====================================================================
-          2. BACKGROUND: 2-LAYER INLINE SVG SKYLINE + FLICKERING WINDOW LIGHTS
-             + SCANLINES OVERLAY + BOTTOM VIGNETTE (<15KB)
+          BACKGROUND: 2-LAYER INLINE SVG SKYLINE + FLICKERING WINDOW LIGHTS
           ===================================================================== */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* City Skyline Silhouette (Inline SVG with 2 layers, 6-8% opacity, positioned at bottom) */}
+        {/* City Skyline Silhouette */}
         <svg
           className="absolute bottom-0 left-0 w-full h-64 sm:h-80 md:h-96 object-cover"
           viewBox="0 0 1440 360"
@@ -72,7 +90,7 @@ export const Footer = () => {
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
         >
-          {/* Layer 1: Distant City Skyscrapers (8% opacity, cyan tint) */}
+          {/* Layer 1: Distant City Skyscrapers */}
           <g opacity="0.08" fill="#19e3f5">
             <rect x="0" y="160" width="45" height="200" />
             <rect x="55" y="110" width="60" height="250" />
@@ -100,7 +118,7 @@ export const Footer = () => {
             <rect x="1340" y="120" width="100" height="240" />
           </g>
 
-          {/* Layer 2: Foreground Heavy Highrises (7% opacity, darker tone with sharp spires) */}
+          {/* Layer 2: Foreground Heavy Highrises */}
           <g opacity="0.07" fill="#0e1828" stroke="#19e3f5" strokeWidth="0.5">
             <rect x="20" y="190" width="70" height="170" />
             <rect x="100" y="140" width="55" height="220" />
@@ -122,39 +140,23 @@ export const Footer = () => {
             <rect x="1335" y="160" width="90" height="200" />
           </g>
 
-          {/* Random Window Lights (Yellow & Cyan Dots with slow CSS opacity flicker) */}
+          {/* Random Window Lights */}
           <g>
-            {/* Yellow Windows (Flicker Pattern A) */}
             <circle cx="115" cy="155" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-            <circle cx="125" cy="175" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
             <circle cx="260" cy="180" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-            <circle cx="290" cy="110" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-            <circle cx="430" cy="140" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
             <circle cx="585" cy="95" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
             <circle cx="730" cy="120" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-            <circle cx="895" cy="115" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
             <circle cx="1120" cy="135" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-            <circle cx="1205" cy="105" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-            <circle cx="1360" cy="145" r="1.5" fill="#f6e81e" className="flicker-dot-a" />
-
-            {/* Cyan Windows (Flicker Pattern B) */}
-            <circle cx="75" cy="130" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
             <circle cx="195" cy="150" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
-            <circle cx="310" cy="190" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
             <circle cx="450" cy="165" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
-            <circle cx="615" cy="150" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
             <circle cx="750" cy="170" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
-            <circle cx="835" cy="185" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
-            <circle cx="930" cy="160" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
             <circle cx="1060" cy="180" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
-            <circle cx="1235" cy="160" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
-            <circle cx="1380" cy="180" r="1.5" fill="#19e3f5" className="flicker-dot-b" />
           </g>
         </svg>
 
         {/* Scanline CRT overlay */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.8) 50%)',
             backgroundSize: '100% 4px',
@@ -173,94 +175,75 @@ export const Footer = () => {
       {/* =====================================================================
           MAIN UNIFIED FOOTER CONTAINER
           ===================================================================== */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12 sm:pb-16 relative z-10">
-        <div
-          className="relative w-full bg-[#060c18]/85 backdrop-blur-md border border-[#19e3f5]/25 hover:border-[#19e3f5]/45 transition-colors duration-300 shadow-[0_12px_45px_rgba(0,0,0,0.7)] p-6 sm:p-8 lg:p-10 overflow-hidden"
-          style={{
-            clipPath:
-              'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))',
-          }}
-        >
-          {/* Ambient top cyber hairline glow */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#19e3f5]/40 to-transparent pointer-events-none" />
-
+      {/* =====================================================================
+          MAIN UNIFIED FOOTER CONTAINER
+          ===================================================================== */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-10 sm:pb-14 relative z-10">
+        <div className="relative w-full bg-[#050c18]/95 backdrop-blur-md border border-[#19e3f5] shadow-[0_0_20px_rgba(25,227,245,0.12)] p-6 sm:p-8 lg:p-9">
           {/* Cyber Corner Brackets */}
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#19e3f5]/60 pointer-events-none" />
-          <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#19e3f5]/60 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#19e3f5]/60 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#19e3f5]/60 pointer-events-none" />
+          <div className="absolute -top-[2px] -left-[2px] w-3.5 h-3.5 border-t-2 border-l-2 border-[#19e3f5] pointer-events-none" />
+          <div className="absolute -top-[2px] -right-[2px] w-3.5 h-3.5 border-t-2 border-r-2 border-[#19e3f5] pointer-events-none" />
+          <div className="absolute -bottom-[2px] -left-[2px] w-3.5 h-3.5 border-b-2 border-l-2 border-[#19e3f5] pointer-events-none" />
+          <div className="absolute -bottom-[2px] -right-[2px] w-3.5 h-3.5 border-b-2 border-r-2 border-[#19e3f5] pointer-events-none" />
 
           {/* ===================================================================
-              TOP SECTION: 3 COLUMNS (Branding, Directory, Transmissions)
+              4 BALANCED SECTIONS: Branding, Directory, Enquiries, Transmissions
               =================================================================== */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10">
-            {/* Column 1: ProtoFos Branding (5 cols on lg) */}
-            <div className="md:col-span-12 lg:col-span-5 relative overflow-hidden flex flex-col justify-between">
-              {/* Oversized background watermark */}
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-8 -left-3 text-[80px] sm:text-[105px] font-cyberpunk font-black italic tracking-tighter select-none pointer-events-none leading-none z-0"
-                style={{
-                  WebkitTextStroke: '1px #19e3f5',
-                  color: 'transparent',
-                  opacity: 0.05,
-                }}
-              >
-                PROTOFOS
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
 
-              <div className="relative z-10 space-y-4">
+            {/* Column 1: ProtoFos Branding (4 cols on lg) */}
+            <div className="lg:col-span-4 relative flex flex-col justify-between">
+              <div className="relative z-10 space-y-3.5">
                 {/* Logo + Heading */}
-                <div className="flex items-center gap-3.5">
-                  <div
-                    className="p-1.5 bg-[#04070b] border border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.35)] flex-shrink-0"
-                    style={{
-                      clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)',
-                    }}
-                  >
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <div className="p-1.5 bg-[#04070b] border border-[#f6e81e] shadow-[0_0_12px_rgba(246,232,30,0.35)] flex-shrink-0 rounded-[2px]">
                     <img
                       src="/protofos-logo.png"
                       alt="Protofos Official Logo"
-                      className="h-9 w-auto object-contain drop-shadow-[0_0_8px_rgba(246,232,30,0.7)]"
+                      className="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_0_8px_rgba(246,232,30,0.7)]"
                     />
                   </div>
+
                   <div>
-                    <h3 className="footer-glitch-title inline-block cursor-pointer font-cyberpunk font-bold italic text-2xl sm:text-3xl text-white tracking-widest leading-none">
-                      PROTOFOS <span className="text-[#f6e81e] drop-shadow-[0_0_12px_rgba(246,232,30,0.6)]">2026</span>
+                    <h3 className="footer-glitch-title inline-block font-cyberpunk font-bold italic text-xl sm:text-2xl text-white tracking-widest leading-none">
+                      PROTOFOS <span className="text-[#f6e81e] drop-shadow-[0_0_10px_rgba(246,232,30,0.6)]">2026</span>
                     </h3>
-                    <span className="block font-spacemono text-[10px] sm:text-[11px] text-[#19e3f5] tracking-[0.2em] uppercase mt-1">
+                    <span className="block font-spacemono text-[9.5px] sm:text-[10px] text-[#19e3f5] tracking-[0.2em] uppercase mt-1">
                       IIIT BHAGALPUR TECHNICAL BOARD
                     </span>
                   </div>
                 </div>
+
+                <p className="font-body text-xs text-slate-300 leading-relaxed max-w-sm">
+                  The flagship interdisciplinary annual technical festival of Indian Institute of Information Technology Bhagalpur.
+                </p>
+
+                <div className="inline-flex items-center gap-2 font-spacemono text-[10px] text-[#8793a2] pt-1">
+                  <span>30 OCT - 01 NOV 2026 // ON-CAMPUS</span>
+                </div>
               </div>
             </div>
 
-            {/* Column 2: Directory (4 cols on lg, 6 cols on md) */}
-            <div className="md:col-span-6 lg:col-span-4 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 lg:pl-10">
-              {/* Heading with square marker */}
-              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-white/10 mb-4">
-                <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
+            {/* Column 2: Directory (2 cols on lg) */}
+            <div className="lg:col-span-2 border-l border-[#19e3f5]/20 pl-6 lg:pl-7">
+              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-2 border-b border-[#19e3f5]/25 mb-3.5">
                 <span className="font-bold">DIRECTORY</span>
               </div>
 
-              {/* Links: Space Mono uppercase, hover yellow, left slide-in "▸" arrow 150ms */}
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {directoryLinks.map((item) => (
                   <li key={item.name}>
                     <a
                       href={item.href}
-                      className={`group flex items-center py-0.5 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 ${
-                        item.active ? 'text-[#f6e81e]' : 'text-[#8793a2] hover:text-[#f6e81e]'
-                      }`}
-                    >
-                      {/* Slide-in arrow: cyan to yellow on hover, 150ms */}
-                      <span
-                        className={`inline-block mr-2 text-xs transition-all duration-150 transform ${
-                          item.active
-                            ? 'text-[#f6e81e] translate-x-0 opacity-100'
-                            : 'text-[#19e3f5] group-hover:text-[#f6e81e] -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
+                      onClick={(e) => handleLinkClick(e, item.href)}
+                      className={`group flex items-center py-1 font-spacemono uppercase text-xs tracking-wider transition-colors duration-150 cursor-pointer ${item.active ? 'text-[#f6e81e] font-semibold' : 'text-[#8793a2] hover:text-[#f6e81e]'
                         }`}
+                    >
+                      <span
+                        className={`inline-block mr-2 text-xs transition-all duration-150 transform ${item.active
+                          ? 'text-[#f6e81e] translate-x-0 opacity-100'
+                          : 'text-[#19e3f5] group-hover:text-[#f6e81e] -translate-x-1.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
+                          }`}
                       >
                         ▸
                       </span>
@@ -271,82 +254,118 @@ export const Footer = () => {
               </ul>
             </div>
 
-            {/* Column 3: Transmissions (3 cols on lg, 6 cols on md) */}
-            <div className="md:col-span-6 lg:col-span-3 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 lg:pl-10">
-              {/* Heading with square marker */}
-              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-3 border-b border-white/10 mb-4">
-                <span className="w-2 h-2 bg-[#f6e81e] shadow-[0_0_6px_#f6e81e] inline-block mr-2" />
-                <span className="font-bold">TRANSMISSIONS</span>
+            {/* Column 3: Contact & Enquiries (3 cols on lg) */}
+            <div className="lg:col-span-3 border-l border-[#19e3f5]/20 pl-6 lg:pl-7">
+              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-2 border-b border-[#19e3f5]/25 mb-3.5">
+                <span className="font-bold">ENQUIRIES & CONTACT</span>
               </div>
 
-              {/* Socials: Lucide icons, 36px clip-corner buttons, hover glow */}
-              <div className="flex flex-wrap items-center gap-3">
+              <p className="font-spacemono text-[11px] text-slate-400 mb-4 leading-relaxed">
+                For registrations, event assistance, or further enquiry:
+              </p>
+
+              <div className="space-y-3">
+                {contactPersons.map((contact) => (
+                  <div key={contact.name} className="transition-colors">
+                    <div className="text-xs font-spacemono font-semibold text-white">
+                      {contact.name}
+                    </div>
+                    <div className="text-[10px] font-spacemono text-[#8793a2] mb-1">
+                      {contact.role}
+                    </div>
+                    <a
+                      href={`tel:${contact.tel}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-spacemono text-[#19e3f5] hover:underline transition-colors"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-[#19e3f5]" />
+                      <span>{contact.phone}</span>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 4: Transmissions / Social Links (3 cols on lg) */}
+            <div className="lg:col-span-3 border-l border-[#19e3f5]/20 pl-6 lg:pl-7">
+              <div className="flex items-center text-xs font-spacemono text-[#19e3f5] tracking-widest uppercase pb-2 border-b border-[#19e3f5]/25 mb-3.5">
+                <span className="font-bold">SOCIALS</span>
+              </div>
+
+              <div className="space-y-3">
                 {socialLinks.map((s) => (
                   <a
                     key={s.name}
                     href={s.href}
                     target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.name}
-                    className="w-9 h-9 bg-[#04070b]/90 border border-[#19e3f5]/30 hover:border-[#f6e81e] text-[#19e3f5] hover:text-[#f6e81e] flex items-center justify-center transition-all duration-200 hover:shadow-[0_0_15px_rgba(246,232,30,0.5)] group"
-                    style={{
-                      clipPath:
-                        'polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px)',
-                    }}
+                    rel="noopener noreferrer"
+                    aria-label={`Official ${s.name}`}
+                    className="flex items-center gap-3 p-2.5 border border-[#19e3f5]/40 hover:border-[#19e3f5] bg-transparent hover:bg-[#19e3f5]/5 transition-all group cursor-pointer"
                   >
-                    <span className="transition-transform duration-150 group-hover:scale-110">
+                    <div className="w-9 h-9 border border-[#19e3f5]/50 group-hover:border-[#19e3f5] flex items-center justify-center text-[#19e3f5] transition-colors flex-shrink-0">
                       {s.icon}
-                    </span>
+                    </div>
+                    <div className="overflow-hidden">
+                      <div className="text-xs font-spacemono font-bold uppercase text-white group-hover:text-[#19e3f5] transition-colors flex items-center gap-1.5">
+                        <span>{s.name}</span>
+                        <ExternalLink className="w-3 h-3 text-white/80 group-hover:text-[#19e3f5] transition-colors" />
+                      </div>
+                      <div className="text-[11px] font-spacemono text-[#8793a2] truncate mt-0.5">
+                        {s.handle}
+                      </div>
+                    </div>
                   </a>
                 ))}
               </div>
             </div>
+
           </div>
 
           {/* ===================================================================
-              RETURN TO SKYLINE BUTTON: Centered at bottom of content
+              RETURN TO SKYLINE BUTTON: Centered
               =================================================================== */}
-          <div className="mt-10 sm:mt-12 mb-8 sm:mb-10 flex justify-center">
+          <div className="mt-8 sm:mt-10 mb-6 flex justify-center">
             <button
               type="button"
               onClick={scrollToTop}
-              className="py-3 px-6 sm:px-8 bg-[#04070b]/90 hover:bg-[#f6e81e] text-[#f6e81e] hover:text-[#04070b] border-2 border-[#f6e81e] shadow-[0_0_14px_rgba(246,232,30,0.25)] hover:shadow-[0_0_28px_rgba(246,232,30,0.85)] transition-all duration-300 flex items-center justify-center gap-2.5 text-xs sm:text-sm font-cyberpunk font-bold italic uppercase tracking-widest cursor-pointer group/btn"
-              style={{
-                clipPath:
-                  'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))',
-              }}
+              className="py-2 px-6 sm:px-7 bg-transparent hover:bg-[#f6e81e]/10 text-[#f6e81e] border border-[#f6e81e] shadow-[0_0_10px_rgba(246,232,30,0.15)] hover:shadow-[0_0_20px_rgba(246,232,30,0.5)] transition-all duration-300 flex items-center justify-center gap-2 text-xs font-spacemono font-bold tracking-widest uppercase cursor-pointer group"
             >
-              <ArrowUp className="w-4 h-4 group-hover/btn:-translate-y-1 transition-transform duration-200" />
+              <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               <span>RETURN TO SKYLINE</span>
             </button>
           </div>
 
           {/* ===================================================================
-              BOTTOM SECTION: Subtle Divider + Copyright & Legal Info
+              BOTTOM SECTION: IIIT Bhagalpur Branding + Divider + Copyright
               =================================================================== */}
-          <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10.5px] sm:text-[11px] font-spacemono text-[#8793a2]">
-            {/* Left: Copyright */}
-            <div className="flex items-center gap-2 text-center md:text-left">
-              <span className="text-[#19e3f5] font-bold">[</span>
-              <span>&copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR.</span>
-              <span className="text-[#19e3f5] font-bold">]</span>
+          <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Left: Circular Glowing IIIT Bhagalpur Logo + 3-line Text */}
+            <div className="flex items-center gap-3.5">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-[#19e3f5] p-1 bg-[#04070b] shadow-[0_0_15px_rgba(25,227,245,0.5)] flex items-center justify-center flex-shrink-0">
+                <img
+                  src="/images/iiit-bhagalpur-logo.png"
+                  alt="IIIT Bhagalpur Official Logo"
+                  className="w-full h-full object-contain rounded-full"
+                />
+              </div>
+              <div className="text-left font-spacemono leading-tight">
+                <div className="text-xs sm:text-[13px] font-bold text-[#19e3f5] tracking-wider uppercase">
+                  IIIT BHAGALPUR
+                </div>
+                <div className="text-[10px] sm:text-[11px] text-[#19e3f5]/90 tracking-wide mt-0.5">
+                  Indian Institute of Information
+                </div>
+                <div className="text-[10px] sm:text-[11px] text-[#19e3f5]/90 tracking-wide">
+                  Technology Bhagalpur
+                </div>
+              </div>
             </div>
 
-            {/* Right: Legal links */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-              <span className="text-[#19e3f5] font-bold">[</span>
-              <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
-                PRIVACY POLICY
-              </a>
-              <span className="text-[#19e3f5]">•</span>
-              <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
-                TERMS OF SERVICE
-              </a>
-              <span className="text-[#19e3f5]">•</span>
-              <a href="#hero" className="hover:text-[#f6e81e] transition-colors">
-                CODE OF CONDUCT
-              </a>
-              <span className="text-[#19e3f5] font-bold">]</span>
+            {/* Center: Thin horizontal divider line */}
+            <div className="hidden lg:block flex-1 h-[1px] bg-white/10 mx-6" />
+
+            {/* Right: Copyright */}
+            <div className="font-spacemono text-[10px] sm:text-[11px] text-[#8793a2] tracking-wider text-center md:text-right">
+              &copy; 2026 PROTOFOS. ALL RIGHTS RESERVED. IIIT BHAGALPUR.
             </div>
           </div>
         </div>
