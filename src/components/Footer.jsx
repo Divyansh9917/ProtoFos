@@ -40,8 +40,8 @@ export const Footer = ({ onNavigate }) => {
   const socialLinks = [
     {
       name: 'INSTAGRAM',
-      handle: '@protofos.iiit',
-      href: 'https://www.instagram.com/protofos.iiit/',
+      handle: '@protofos_iiitbh',
+      href: 'https://www.instagram.com/protofos_iiitbh/',
       icon: <Instagram className="w-5 h-5 text-[#19e3f5]" />,
     },
     {
