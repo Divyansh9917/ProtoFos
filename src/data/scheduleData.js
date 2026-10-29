@@ -5,7 +5,7 @@
 
 export const FEST_DAYS = [
   { id: 'all', label: 'All Days', dateStr: '30 Oct – 01 Nov 2026' },
-  { id: 'day-0', label: 'Day 0', date: '2026-10-30', dateStr: '30 Oct 2026', title: 'Opening' },
+
   { id: 'day-1', label: 'Day 1', date: '2026-10-31', dateStr: '31 Oct 2026', title: 'Main Events' },
   { id: 'day-2', label: 'Day 2', date: '2026-11-01', dateStr: '01 Nov 2026', title: 'Finals & Closing' },
 ];
